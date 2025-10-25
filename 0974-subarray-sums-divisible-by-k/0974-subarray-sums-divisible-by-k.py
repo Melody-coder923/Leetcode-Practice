@@ -7,7 +7,7 @@ class Solution:
         #如果两个前缀和 mod k 相等，那么它们之间的子数组和一定能被 k 整除
         # 我们记录每个余数 mod 出现的次数 prefix_mod[mod]
         mod_freq=defaultdict(int)
-        mod_freq[0] = 1
+        mod_freq[0] = 1 # 初始化必须有,所有前缀和都是
         prefixsum=0
         res=0
         for num in nums:
