@@ -11,6 +11,6 @@ class Solution:
                     continue
                 else:
                     return False
-            stack.append(c) #(
+            stack.append(c)
         return not stack
 
