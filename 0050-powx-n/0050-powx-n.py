@@ -11,3 +11,7 @@ class Solution:
             x *= x            # x 翻倍
             n //= 2           # n 减半
         return result
+"""
+核心思想：利用 指数分解，把指数每次减半
+时间复杂度：O(log n)，指数每次都减半。
+"""
