@@ -1,7 +1,7 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
     #target: 交叉对比左边和另外一个数组的右边,左<右 
-    #且左边数字个数,小于右边数字个数
+    #且左边数字个数,小于右边数字个数 i+j<= 整个数组一半
     # 1 | 3 
     # 2 | 
     # 单数:取左边最大
@@ -19,7 +19,6 @@ class Solution:
     # Step1: 移动分割线,实现target
     #以最短的数组为坐标,让num1最短
         m,n=len(nums1),len(nums2) 
-
         #Edge case:
         if not m and not n:
             return 0.0
@@ -39,8 +38,11 @@ class Solution:
             minright2=float("inf") if j==n else nums2[j]
 
             if maxleft1<=minright2 and maxleft2<=minright1:
+                # Step2: 看even,odd个数
+                #单数:取左边最大
                 if (m+n)%2!=0:
                     return max(maxleft1,maxleft2)
+                #偶数:取左边最大和右边最小
                 else:
                     return (max(maxleft1,maxleft2)+min(minright1,minright2))/2
                 
@@ -57,8 +59,5 @@ class Solution:
                 #         j 
                 
 
-        # Step2: 看even,odd个数
-
-        #单数:取左边最大
-
-        #偶数:取左边最大和右边最小
+        
+        
