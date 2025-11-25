@@ -6,10 +6,8 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        
         val_idx= {val:i for i,val in enumerate(inorder)}
         self.pre_idx=0
-
         def helper(left,right):
             if left>right:
                 return None
