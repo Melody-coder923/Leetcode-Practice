@@ -19,7 +19,5 @@ class Solution:
 
             root.left = helper(left, idx - 1)
             root.right = helper(idx + 1, right)
-
             return root
-
         return helper(0,len(inorder)-1)
