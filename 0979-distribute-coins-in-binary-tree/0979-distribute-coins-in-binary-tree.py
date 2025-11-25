@@ -13,9 +13,8 @@ class Solution:
                 return 0
             left= dfs(node.left)
             right=dfs(node.right)
-            balance= node.val+left+right-1
             self.moves += abs(left) + abs(right)
-            return balance
+            return node.val+left+right-1
         dfs(root)
         return self.moves
 
