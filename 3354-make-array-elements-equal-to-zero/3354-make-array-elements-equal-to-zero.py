@@ -16,9 +16,9 @@ class Solution:
         for num in nums:
             leftsum+=num
             if num==0:
-                if leftsum==total/2:
+                if leftsum==total-leftsum:
                     count+=2
-                elif abs(leftsum-total/2)==1:
+                elif abs(leftsum-total+leftsum)==1:
                     count+=1
         return count
         
