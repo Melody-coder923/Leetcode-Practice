@@ -13,3 +13,15 @@ class Solution:
                 if i == len(s) or s[i] != c:
                     return strs[0][:i]
         return strs[0]
+"""
+    def longestCommonPrefix(s):
+        if not s:
+            return ""
+        prefix = s[0]
+        for word in s[1:]:
+            while not word.startswith(prefix):
+                prefix = prefix[:-1]
+                if not prefix:
+                    return ""
+        return prefix    
+"""
