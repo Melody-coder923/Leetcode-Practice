@@ -16,9 +16,10 @@ class Solution:
         for num in nums:
             leftsum+=num
             if num==0:
-                if leftsum==total-leftsum:
+                rightsum=total-leftsum
+                if leftsum==rightsum:
                     count+=2
-                elif abs(leftsum-total+leftsum)==1:
+                elif abs(rightsum-leftsum)==1:
                     count+=1
         return count
         
