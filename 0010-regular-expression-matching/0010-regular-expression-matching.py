@@ -25,8 +25,9 @@ class Solution:
                     # 星号情况2: 代表1个或多个
                     multmatch=(s[i-1]==p[j-2] or p[j-2]==".")
                     if multmatch:
-                        dp[i][j]=dp[i-1][j]
-                    dp[i][j] = zeromatch or (multmatch and dp[i-1][j])
+                        multmatch=dp[i-1][j]
+
+                    dp[i][j] = zeromatch or multmatch
         return dp[n][m]
                        
         
