@@ -3,14 +3,12 @@ class Solution:
         map={")":"(", "}":"{","]":"["}
         stack=[]
         for c in s:
-            if c in map:
-                if not stack:
+            if c not in map:
+                stack.append(c)
+            else:
+                if not stack or stack.pop()!= map[c]:
                     return False
-                check=stack.pop()
-                if check==map[c]:
-                    continue
-                else:
-                    return False
-            stack.append(c)
         return not stack
+                    
+
 
