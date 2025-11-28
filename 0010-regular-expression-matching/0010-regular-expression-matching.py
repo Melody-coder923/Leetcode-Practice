@@ -26,7 +26,6 @@ class Solution:
                     multmatch=(s[i-1]==p[j-2] or p[j-2]==".")
                     if multmatch:
                         multmatch=dp[i-1][j]
-
                     dp[i][j] = zeromatch or multmatch
         return dp[n][m]
                        
