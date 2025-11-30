@@ -21,7 +21,7 @@ class Solution:
         # 找到分组,快慢指针
         fast=slow=head
         for _ in range(k-1):
-            if not fast.next:  # 剩余节点不足 k 个
+            if not fast.next:  # 剩余节点不足 k 个,千万不要忘记!!!!
                 return head
             fast = fast.next
 
