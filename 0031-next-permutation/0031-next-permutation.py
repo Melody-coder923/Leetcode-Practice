@@ -33,5 +33,6 @@ class Solution:
         # 交换降点和比他大得数字
         nums[i],nums[j]=nums[j],nums[i]
         #降点原始位置后面升序
+        # 千万不要切片, 切片就会生成新的列表对象!!!!!!!!!!!!!!!!!!!!
         nums[i + 1:] = reversed(nums[i + 1:])
         return nums
