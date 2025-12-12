@@ -2,14 +2,12 @@ from typing import List
 
 class Solution:
     def maxSumDivThree(self, nums: List[int]) -> int:
-        # dp[i] 表示当前余 i 的最大和
-        dp = [0, -10**9, -10**9]  # 用大负数代替 -inf
+        dp = [0, 0, 0]  # 初始状态，全用整数即可
 
         for num in nums:
-            tmp = dp[:]  # 拷贝旧状态
-            for i in range(3):
-                new_sum = tmp[i] + num
-                new_rem = new_sum % 3       # 这里都是整数，不会报错
-                dp[new_rem] = max(dp[new_rem], new_sum)
+            a, b, c = dp[:]  # 拷贝旧状态
+            dp[(a + num) % 3] = max(dp[(a + num) % 3], a + num)
+            dp[(b + num) % 3] = max(dp[(b + num) % 3], b + num)
+            dp[(c + num) % 3] = max(dp[(c + num) % 3], c + num)
 
         return dp[0]
