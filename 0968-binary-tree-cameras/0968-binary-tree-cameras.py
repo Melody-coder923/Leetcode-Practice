@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#状态 0：需要被覆盖（没人管我) 状态 1：已被覆盖（被子节点的摄像头照到）│状态 2：有摄像头（我自己有摄像头）   
 class Solution:
     def minCameraCover(self, root: Optional[TreeNode]) -> int:
         self.cameras = 0
