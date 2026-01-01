@@ -3,18 +3,18 @@ class Solution:
         stack=[]
         remove=set()
         for i in range(len(s)):
-            if s[i]== "(":
+            if s[i]=="(":
                 stack.append(i)
-            elif s[i]== ")":
+            elif s[i]==")":
                 if stack:
                     stack.pop()
                 else:
                     remove.add(i)
-        remove = remove.union(set(stack))
         
-        result = []
+        remove.update(stack)
+        res=[]
         for i in range(len(s)):
             if i not in remove:
-                result.append(s[i])
-        return ''.join(result)
-        
+                res.append(s[i])
+        return "".join(res)
+                
