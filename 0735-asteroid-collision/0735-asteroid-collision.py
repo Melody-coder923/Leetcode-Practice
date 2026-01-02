@@ -12,7 +12,6 @@ class Solution:
                 else:
                     break
             else:
-                if not stack or num>0 or stack[-1]<0:
-                    stack.append(num)
+                stack.append(num)
 
         return stack
