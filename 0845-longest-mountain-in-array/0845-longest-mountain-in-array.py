@@ -1,6 +1,6 @@
 class Solution:
     def longestMountain(self, arr: List[int]) -> int:
-        # 核心是形状识别:找山 上升+top+下降 且长度>=3
+        # 核心是形状识别: 找山 上升+top+下降,  长度(有上升,+1,有下降>=3) ->约束
         n=len(arr)
         res=0
         i=1
@@ -18,6 +18,7 @@ class Solution:
             while i<n and arr[i]<arr[i-1]:
                 lower+=1
                 i+=1  
+            #判断条件
             if upper > 0 and lower > 0:
                 res = max(res, upper + lower + 1)
         return res
