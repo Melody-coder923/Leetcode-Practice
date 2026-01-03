@@ -1,0 +1,30 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        answer = [1] * n
+
+        # 从左到右：计算左侧乘积
+        left = 1
+        for i in range(n):
+            answer[i] = left
+            left *= nums[i]
+
+        # 从右到左：乘上右侧乘积
+        right = 1
+        for i in range(n-1, -1, -1):
+            answer[i] *= right
+            right *= nums[i]
+
+        return answer
+
+        
+"""
+res[i] = 左边所有数的乘积 × 右边所有数的乘积
+           1 2 3 4
+      idx  0 1 2 3
+    output 1 1 2 6
+    left   1 2 6 24
+    right  24 24 12 4
+out-update       
+
+"""
