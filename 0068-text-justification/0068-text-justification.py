@@ -10,16 +10,16 @@ class Solution:
             level = []
             line_len = 0  # 当前行所有单词的总长度（不含空格）
 
-            # 1️⃣ 尽可能往这一行里放单词
+            # 1️.尽可能往这一行里放单词
             while i < n and line_len + len(words[i]) + len(level) <= maxWidth:
                 level.append(words[i])
                 line_len += len(words[i])
                 i += 1
 
-            # 2️⃣ 是否是最后一行
+            # 2. 是否是最后一行
             is_last_line = (i == n)
 
-            # 3️⃣ 构造这一行字符串
+            # 3. 构造这一行字符串
             if len(level) == 1 or is_last_line:
                 # 左对齐
                 line = " ".join(level)
