@@ -23,9 +23,9 @@ class Solution:
         visited={target}
         res=[]
         while q:
-            node,distance=q.popleft()
-            if distance==k:
-                res.append(node.val)
+            node,distance=q.popleft() #  
+            if distance==k: 
+                res.append(node.val) #7,4,1
             elif distance>k:
                 continue
             for neighbor in [node.left,node.right,map.get(node)]:
