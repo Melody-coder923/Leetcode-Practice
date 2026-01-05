@@ -1,5 +1,5 @@
 class Solution:
-    #dp[i][j] = 把 word1[:i] 变成 word2[:j] 的最小操作数
+    #定义 dp[i][j] 为 word1 的前 i 个字符转换成 word2 的前 j 个字符所需的最少操作数。
     def minDistance(self, word1: str, word2: str) -> int:
         m,n=len(word1),len(word2)
         if m==0:
