@@ -1,22 +1,20 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        stack=[]
-        star=[]
+        left_stack=[]
+        star_stack=[]
         for i, char in enumerate(s):
             if char=="(":
-                stack.append(i)
+                left_stack.append(i)
             elif char=="*":
-                star.append(i)
+                star_stack.append(i)
             else:
-                if stack:
-                    stack.pop()
-                elif star:
-                    star.pop()
+                if left_stack:
+                    left_stack.pop()
+                elif star_stack:
+                    star_stack.pop()
                 else:
                     return False
-        while stack and star:
-            if stack[-1]>star[-1]:
+        while left_stack and star_stack:
+            if left_stack.pop()> star_stack.pop(): #如果 星号的位置在左括号的位置之前
                 return False
-            stack.pop()
-            star.pop()
-        return not stack
+        return len(left_stack) == 0
