@@ -1,35 +1,26 @@
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
-        # 统计岛屿数量
-        islands=[]
-        directions=[(0,1),(1,0),(0,-1),(-1,0)]
-        def dfs(i,j,path):
-            if i<0 or j<0 or i>=m or j>=n or grid[i][j]!=1:
-                return
-            path.append((i,j))
-            grid[i][j]=0
-            for dx,dy in directions:
-                nx,ny=i+dx,j+dy
-                dfs(nx,ny,path)
-
+        # 相对坐标确定形状,sort tuple后, 放入set, 然后求Len(set)
         m,n=len(grid),len(grid[0])
+        shapes=set()
+
+        def dfs(i,j,x_base,y_base,shape):
+            if i<0 or i>=m or j<0 or j>=n or grid[i][j]==0:
+                return 
+            grid[i][j]=0
+            shape.append((i-x_base,j-y_base))
+
+            dfs(i+1,j,x_base,y_base,shape)
+            dfs(i-1,j,x_base,y_base,shape)
+            dfs(i,j-1,x_base,y_base,shape)
+            dfs(i,j+1,x_base,y_base,shape)
+
+
         for i in range(m):
             for j in range(n):
                 if grid[i][j]==1:
-                    path=[]
-                    dfs(i,j,path)
-                    islands.append(path)
-        
-        shapes = set()
-
-        for island in islands:
-        # 找到岛屿最左上角作为原点
-            min_x = min(x for x, _ in island)
-            min_y = min(y for _, y in island)
-        # 归一化岛屿形状
-            normalized = tuple(sorted((x-min_x, y-min_y) for x,y in island))
-            shapes.add(normalized)
-
+                    shape=[]
+                    dfs(i,j,i,j,shape)
+                    shape.sort()
+                    shapes.add(tuple(shape)) # set只能存哈希对象, 不可哈希的是list, dict, set
         return len(shapes)
-
-       
