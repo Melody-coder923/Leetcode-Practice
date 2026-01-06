@@ -1,16 +1,19 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        cur_end = 0        # 当前跳跃的边界
-        farthest = 0       # 当前区间能跳到的最远距离
+        """
+            end        ：当前这一步能到的最远边界
+            farthest  ：在当前区间内，下一步能到的最远位置
+            steps     ：已经用了多少步
+        """
+        n = len(nums)
         steps = 0
+        end = 0
+        farthest = 0
 
-        for i in range(len(nums) - 1):
-            # 在当前区间内不断扩展下一跳能达到的最远范围
+        for i in range(n - 1):
             farthest = max(farthest, i + nums[i])
-
-            # 到达当前跳跃的边界 → 必须跳一步
-            if i == cur_end:
+            if i == end:
                 steps += 1
-                cur_end = farthest   # 更新下一跳的区间
+                end = farthest
 
         return steps
