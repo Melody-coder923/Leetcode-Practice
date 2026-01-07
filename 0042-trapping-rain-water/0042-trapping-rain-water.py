@@ -1,18 +1,23 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        left,right=0,len(height)-1
-        maxleft=maxright=0
-        area=0
-        
-        while left<right:
-            if height[left]<=height[right]:
-                maxleft=max(maxleft,height[left])
-                area+= maxleft-height[left]
-                left+=1
+        stack = []
+        area = 0
+        #栈中对应的高度是「单调递减」的
+        #栈里放的是“还没等到右墙的柱子”， 一旦遇到更高的柱子，就不断结算它们上面的水。
+        for cur in range(len(height)):
+            #开始接水
+            while stack and height[cur] > height[stack[-1]]:
+                bottom = stack.pop()
+                if not stack:
+                    break
+                
+                left = stack[-1]
+                width = cur - left - 1
+                bounded_height = min(height[left], height[cur]) - height[bottom]
 
-            elif height[left]>height[right]:
-                maxright=max(maxright,height[right])
-                area+= maxright-height[right]
-                right-=1
+                area += width * bounded_height
+
+            stack.append(cur)
 
         return area
+
