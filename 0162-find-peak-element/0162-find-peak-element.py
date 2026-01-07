@@ -1,7 +1,9 @@
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
+        #peak值 可以 是 n-1（最后一个位置）
         #闭合区间[0,n-2]  因为mid+1不能大于n-1
         #对应开区间(-1,n-1)
+        #(l, r]   ← 左开右闭
         l,r=-1, len(nums)-1
         while l+1<r:
             mid= l+(r-l)//2
