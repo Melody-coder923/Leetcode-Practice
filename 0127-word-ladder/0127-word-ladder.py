@@ -1,41 +1,35 @@
 from collections import defaultdict, deque
-# shortest transformation seq-> BFS
-#状态: 当前单词 + 当前走了多少步（level）-> 某个单词上，这是第几步
-#如何状态转移: 对当前单词的 每一个位置,从 'a' 到 'z' 轮流替换
-# 如果： 1. 替换后 ≠ 原单词 2. 替换后的单词在 wordList 中 3.没访问过
-# 两个方法做这道题: 1. 中间态映射 (下面方法) 2. 直接枚举 26 个字母
-# 中间态映射: hot → *ot, h*t, ho*  dot → *ot, d*t, do*
-
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList=set(wordList)
         if endWord not in wordList:
             return 0
+        
+        wordLen=len(beginWord)
 
-        # 预处理：构造“中间状态”字典
-        all_combo_dict = defaultdict(list)
-        word_len = len(beginWord)
+        # 映射型字典 : *ot: [hot,dot,lot]
+        map = defaultdict(list)
         for word in wordList:
-            for i in range(word_len):
-                intermediate_word = word[:i] + '*' + word[i+1:]
-                all_combo_dict[intermediate_word].append(word)
+            for i in range(wordLen): 
+                key=word[:i]+"*"+word[i+1:]
+                map[key].append(word)    
+        # BFS 最短路径
 
-        # BFS 初始化
-        queue = deque()
-        queue.append((beginWord, 1))
-        visited = set([beginWord])
+        q = deque([(beginWord, 1)])
+        visited=set([beginWord])
+        while q:
+            word,level=q.popleft()
+            for i in range(wordLen):
+                intermediate= word[:i]+"*"+word[i+1:]
 
-        while queue:
-            current_word, level = queue.popleft()
-            for i in range(word_len):
-                intermediate_word = current_word[:i] + '*' + current_word[i+1:]
-
-                for neighbor in all_combo_dict[intermediate_word]:
-                    if neighbor == endWord:
-                        return level + 1
-                    if neighbor not in visited:
-                        visited.add(neighbor)
-                        queue.append((neighbor, level + 1))
-                # 清空防止重复访问
-                all_combo_dict[intermediate_word] = []
+                for neighbour in map[intermediate]:
+                    if neighbour==endWord:
+                        return level+1
+                    if  neighbour not in visited:
+                        visited.add(neighbour)
+                        q.append((neighbour,level+1))
+                map[intermediate]=[]
 
         return 0
+
+    
