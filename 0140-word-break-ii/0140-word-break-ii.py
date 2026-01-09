@@ -22,6 +22,7 @@ class Solution:
                             res.append(word)
                         else:
                             res.append(word + " " + sub)
+                        #隐式回溯:如果凑不上, 选择会被忽略,没有任何东西加入res
             memo[i] = res
             return res
         return dfs(0)
