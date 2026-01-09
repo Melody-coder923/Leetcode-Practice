@@ -1,29 +1,32 @@
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        left, right = 0, len(arr) - k
-        #左边：窗口内部已经固定的元素 → 可以直接用
+        n = len(arr)
+        # 1️⃣ 找到 x 的插入位置 idx
+        idx = bisect.bisect_left(arr, x)  # 返回第一个 >= x 的位置
 
-        #右边：窗口右边潜在更优元素 → 必须看窗口外的元素
+        # 2️⃣ 初始化左右指针
+        left = idx - 1  # 插入点左边
+        right = idx     # 插入点右边
 
-        # 二分判定函数的目标：找到离 x 最近的长度 k 窗口
+        res = []
 
-        """
-        窗口左端点 = mid
-
-        窗口右端点 = mid + k - 1
-
-        窗口外右边的下一个元素 = mid + k → 用来判断是否应该右移窗口
-        """
-
-        while left < right:
-            mid = (left + right) // 2 
-            # 比较窗口左边和右边谁更远离 x
-            if x - arr[mid] > arr[mid + k] - x:
-                # 说明更靠近 x 的窗口在右边
-                left = mid + 1
+        # 3️⃣ 扩展左右指针，选出 k 个最接近 x 的元素
+        while len(res) < k:
+            if left < 0:  # 左边越界，只能从右边取
+                res.append(arr[right])
+                right += 1
+            elif right >= n:  # 右边越界，只能从左边取
+                res.append(arr[left])
+                left -= 1
             else:
-                # 当前窗口更靠近 x，或一样近但数值较小，向左缩
-                right = mid
+                # x 离左边更近或者相等 → 取左边
+                if x - arr[left] <= arr[right] - x:
+                    res.append(arr[left])
+                    left -= 1
+                else:
+                    res.append(arr[right])
+                    right += 1
 
-        # 最终 left 是最佳窗口起点
-        return arr[left:left + k]
+        # 4️⃣ 最后返回升序结果
+        res.sort()
+        return res
