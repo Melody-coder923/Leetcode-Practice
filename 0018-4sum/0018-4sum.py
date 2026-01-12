@@ -12,13 +12,20 @@ class Solution:
         # 2 2 2 2 2 n
         #   i 
         #     j 
-        for i in range(n-3):    
+        # -5,-2,-1,0,2,2,4,4,4 target=12
+        #          i     j l r      
+        # 
+        for i in range(n-3):     
             if i>0 and nums[i]==nums[i-1]:   
                 continue 
-            if nums[0]+nums[1]+nums[2]+nums[3]>target:
-                break
-            if nums[0]+nums[n-1]+nums[n-2]+nums[n-3]<target:
-                continue
+            # i 固定后，最小四数和
+            if nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target:
+                break   # 后面的 i 只会更大，直接退出 i 循环
+
+            # i 固定后，最大四数和
+            if nums[i] + nums[n-1] + nums[n-2] + nums[n-3] < target:
+                continue  # 当前 i 太小，换下一个 i
+                
         #step3: 再固定一个, j=i+1
             for j in range(i+1,n-2): 
                 if j>i+1 and nums[j]==nums[j-1]:
