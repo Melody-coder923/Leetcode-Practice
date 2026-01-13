@@ -1,11 +1,13 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        map={}
+        if len(s)<2:
+            return len(s)
+        map=defaultdict(int)
         l=0
-        res=0
+        maxLen=0
         for r,char in enumerate(s):
-            if char in map and map[char]>=l:
+            while char in map and map[char]>=l:
                 l=map[char]+1
-            res=max(res,r-l+1)
+            maxLen=max(maxLen,r-l+1)
             map[char]=r
-        return res
+        return maxLen
