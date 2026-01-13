@@ -23,6 +23,14 @@ class Solution:
             if c == '1':
                 ones += 1
             else:  # c == '0'
-                # flip = 左边1 + 当前0翻成1
+                # flip = 左边1 + 当前0翻成1 把这个0翻掉, 把左边所有1翻掉
                 min_flip = min(min_flip + 1, ones)
         return min_flip
+
+
+
+        """
+                翻成0 (左边是1)   |  翻成1(右边是0)
+                total=左边1+右边0
+                    1用前缀和  + (总0数量-左边0数量)
+        """
