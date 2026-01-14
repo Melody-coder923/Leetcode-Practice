@@ -3,18 +3,10 @@ class Solution:
         def canfinish(k):
             hour=0
             for pile in piles:   
-                if pile<=k:
-                    hour+=1
-                else:
-                    carry = pile // k
-                    keep=pile%k
-                    if pile % k == 0:
-                        hour += carry
-                    else:
-                        hour += carry + 1
-            return hour<=h
-                    
-
+                hour += pile // k
+                if pile % k > 0:
+                    hour += 1
+            return hour <= h
 
         n=len(piles)
         r=max(piles)+1#最多吃多少根
