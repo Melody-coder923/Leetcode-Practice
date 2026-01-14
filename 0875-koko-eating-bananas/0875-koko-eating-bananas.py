@@ -2,12 +2,16 @@ class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         def canfinish(k):
             hour=0
-            for pile in piles:     
+            for pile in piles:   
                 if pile<=k:
                     hour+=1
                 else:
-                    carry=pile//k
-                    hour+=carry+1
+                    carry = pile // k
+                    keep=pile%k
+                    if pile % k == 0:
+                        hour += carry
+                    else:
+                        hour += carry + 1
             return hour<=h
                     
 
