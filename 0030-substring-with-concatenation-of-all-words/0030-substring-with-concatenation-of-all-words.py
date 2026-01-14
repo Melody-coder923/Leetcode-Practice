@@ -24,16 +24,25 @@ class Solution:
             for right in range(i,len(s)-word_len+1,word_len):
                 # 加入新单词
                 word = s[right : right + word_len]
-                cur[word]+=1
-                count+=1
-                 # 如果窗口超过大小，移除最左边的单词
-                if count > word_count:
+    
+                #加入新单词时，如果这个单词根本不在 target 里，直接重置窗口
+                if word not in target:
+                    cur.clear()
+                    count = 0
+                    left = right + word_len
+                    continue
+                # 加入新单词
+                cur[word] += 1
+                count += 1
+                
+                # 如果这个单词数量超过 target，缩小窗口直到不超
+                while cur[word] > target[word]:
                     left_word = s[left : left + word_len]
-                    cur[left_word]-=1
+                    cur[left_word] -= 1
                     if cur[left_word] == 0:
                         del cur[left_word]
-                    left+=word_len
-                    count-=1
+                    left += word_len
+                    count -= 1
                 # 检查是否匹配
                 if count == word_count and cur == target:
                     res.append(left)
