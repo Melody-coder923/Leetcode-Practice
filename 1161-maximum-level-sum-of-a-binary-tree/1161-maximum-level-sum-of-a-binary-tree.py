@@ -11,7 +11,6 @@ class Solution:
             return 0
         level=0
         smallest_level=float("inf")
-        level_sum=0
         max_sum=float("-inf") 
         q=deque([root]) #1
         while q:
