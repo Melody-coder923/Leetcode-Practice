@@ -1,39 +1,32 @@
 from collections import defaultdict
-from typing import List, Set 
-
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        def buildGraph(equations, values):
-            graph = defaultdict(dict)
-            for i, (a, b) in enumerate(equations):
-                weight = values[i]
-                graph[a][b] = weight
-                graph[b][a] = 1.0 / weight
-            return graph
-        
-        def dfs(graph, start, end, visited):
+        # build graph to show their realationship a/b   b/a
+        graph = defaultdict(dict)
+
+        for (x, y), val in zip(equations, values):
+            graph[x][y] = val       # a -> b = 2
+            graph[y][x] = 1 / val
+
+        # dfs to caculate weight
+        def dfs(start, end, visited):
             if start not in graph:
                 return -1.0
             if start == end:
                 return 1.0
             visited.add(start)
-            for neighbor, weight in graph[start].items():
-                if neighbor not in visited:
-                    result = dfs(graph, neighbor, end, visited)
-                    if result != -1.0:
-                        return weight * result
+            
+            for neighbor, value in graph[start].items():
+                if neighbor in visited:
+                    continue
+                res= dfs(neighbor, end, visited)
+                if res!= -1.0:
+                    return value * res  # 累乘
             return -1.0
-        
-        graph = buildGraph(equations, values)
-        
-        results = []
-        for start, end in queries:
-            if start not in graph or end not in graph:
-                results.append(-1.0)
-            else:
-                visited = set()
-                result = dfs(graph, start, end, visited)
-                results.append(result)
-        
-        return results
-    
+
+        # collect res
+        res=[]
+        for x,y in queries:
+            visited=set()
+            res.append(dfs(x,y,visited))
+        return res
