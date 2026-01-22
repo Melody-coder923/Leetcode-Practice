@@ -5,25 +5,33 @@
 #         self.left = left
 #         self.right = right
 class BSTIterator:
+    #Input: In-order left-root-right  + BST
+
     def __init__(self, root: Optional[TreeNode]):
-        self.stack=[]
-        self.pushleft(root)
+        # none-> smallest number -> sort(in-order)
+        # container
+        self.stack =[]
+        self.push(root)
+        #The pointer should be initialized to a non-existent number smaller than any element in the BST.
+    
+    def push(self,node):
+        # left root right  
+        cur=node
+        while cur:
+            self.stack.append(cur)
+            cur=cur.left
+        # left finish 
 
-    def pushleft(self,node):
-        while node:
-            self.stack.append(node)
-            node=node.left
-        
     def next(self) -> int:
-        node=self.stack.pop()
-        if node.right:
-            self.pushleft(node.right)
-        return node.val
-
+        while self.stack:
+            node=self.stack.pop()
+            if node.right:
+                self.push(node.right)
+            return node.val
+        
     def hasNext(self) -> bool:
         return bool(self.stack)
-
-
+        
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
 # param_1 = obj.next()
