@@ -9,28 +9,28 @@ class Trie:
 
     def insert(self, word: str) -> None:
         cur=self.root
-        for c in word:
-            if c not in cur.children:
-                cur.children[c]=TrieNode()
-            cur=cur.children[c]
+        for char in word:
+            if char not in cur.children:
+                cur.children[char]=TrieNode()
+            cur=cur.children[char]
         cur.is_end=True
 
     def search(self, word: str) -> bool:
         cur=self.root
-        for c in word:
-            if c not in cur.children:
+        for char in word:
+            if char not in cur.children:
                 return False
-            cur=cur.children[c]
+            cur=cur.children[char]
         return cur.is_end
      
     def startsWith(self, prefix: str) -> bool:
         cur=self.root
-        for c in prefix:
-            if c not in cur.children:
+        for char in prefix:
+            if char not in cur.children:
                 return False
-            cur=cur.children[c]
+            cur=cur.children[char]
         return True
-       
+        
 # Your Trie object will be instantiated and called as such:
 # obj = Trie()
 # obj.insert(word)
