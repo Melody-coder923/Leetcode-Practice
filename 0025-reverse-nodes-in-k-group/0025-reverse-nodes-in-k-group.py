@@ -5,31 +5,41 @@
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # Input: Linkedlist , group k  ,consider not multiple of k
+        # Output: reverse in group not change val but move the node
         if not head:
-            return None  # 安全检查 千万不要忘记!!!
-        # 反转 1->2   2->1
-        def reverse(head):
+            return None
+            
+        # step helper function: reverse 
+        def reverse(node):  
             prev=None
-            curr=head
-            while curr:
-                temp=curr.next
-                curr.next=prev
-                prev=curr
-                curr=temp
+            cur=node 
+            while cur:
+                temp=cur.next
+                cur.next=prev
+                prev=cur
+                cur=temp
             return prev
 
-        # 找到分组,快慢指针
-        fast=slow=head
+        # seperate by group  slow(start)not move -fast(end) move by range
+        # for _ in range(k-1): 
+        # 1  2   3
+        # s  f  nextround
+        slow=fast=head
         for _ in range(k-1):
-            if not fast.next:  # 剩余节点不足 k 个,千万不要忘记!!!!
+            if not fast.next: 
                 return head
-            fast = fast.next
-
+            fast=fast.next
+        # cut 1,2
         nextround=fast.next
         fast.next=None
-        newhead= reverse(slow)
-    
+
+           
+
+        # new head=2  2->1 
+        newhead=reverse(slow) 
         
-        # 链接分组反转 + 递归
         slow.next=self.reverseKGroup(nextround,k)
         return newhead
+        
+
