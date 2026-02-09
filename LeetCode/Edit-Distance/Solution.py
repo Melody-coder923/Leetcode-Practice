@@ -1,25 +1,23 @@
 1class Solution:
-2    def minDistance(self, word1: str, word2: str) -> int:
-3        m,n=len(word1),len(word2)
-4        #edge case
-5        if not word1:
+2    #dp[i][j] = 把 word1[:i] 变成 word2[:j] 的最小操作数
+3    def minDistance(self, word1: str, word2: str) -> int:
+4        m,n=len(word1),len(word2)
+5        if m==0:
 6            return n
-7        if not word2:
+7        if n==0:
 8            return m
-9        @lru_cache(None)
-10        def dfs(i,j):
-11            if i < 0:
-12                return j + 1  
-13            if j < 0:
-14                return i + 1  
-15
-16            if word1[i] == word2[j]:
-17                return dfs(i - 1, j - 1)
-18
-19            # 三种操作都要 +1
-20            replace_cost = dfs(i - 1, j - 1) + 1
-21            delete_cost  = dfs(i - 1, j) + 1
-22            insert_cost  = dfs(i, j - 1) + 1
-23            return min(replace_cost, delete_cost, insert_cost)
-24
-25        return dfs(m - 1, n - 1)
+9        dp= [ [0]*(n+1) for _ in range(m+1) ]
+10        #base case
+11        for i in range(m+1):
+12            dp[i][0]=i
+13        for j in range(n+1):
+14            dp[0][j]=j
+15        
+16        for i in range(1,m+1):
+17            for j in range(1,n+1):
+18                if word1[i-1]==word2[j-1]:
+19                    dp[i][j]=dp[i-1][j-1]
+20                else:
+21                    dp[i][j]=min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])+1
+22        return dp[m][n]
+23                
