@@ -3,14 +3,23 @@
 3        """
 4        Do not return anything, modify nums in-place instead.
 5        """
-6        n= len(nums)
-7        k=k%n
-8        self.reverse(nums,0,n-1)
-9        self.reverse(nums,0,k-1)
-10        self.reverse(nums,k,n-1)
-11    def reverse(self,nums:List[int],left:int, right:int) -> None:
-12        while left<right:
-13            nums[left],nums[right]=nums[right],nums[left]
-14            left+=1
-15            right-=1
-16        
+6        #取余数，避免重复
+7        n=len(nums)
+8        k%=n
+9        start=0
+10        count=0
+11
+12        while count<n:
+13            cur=start
+14            prev = nums[start]
+15            
+16            while True:
+17                nxt= (cur+k)%n
+18                nums[nxt], prev = prev, nums[nxt]
+19                cur=nxt
+20                count+=1
+21                if cur==start:
+22                    break
+23            start+=1
+24
+25
