@@ -15,9 +15,9 @@
 15            (4, "IV"),
 16            (1, "I")
 17        ]
-18        res=""
-19        for val, roman in val_to_roman:
-20            while num >= val:
-21                res += roman
-22                num -= val
-23        return res
+18        part=[]
+19        for val,roman in val_to_roman:
+20            while num>=val:
+21                part.append(roman)
+22                num-=val
+23        return "".join(part)
