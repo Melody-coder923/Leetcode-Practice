@@ -7,11 +7,13 @@
 7            ']':'['
 8        }
 9        for c in s:
-10            if c in map and stack:
-11                if map[c]!=stack.pop():
-12                    return False
-13            elif c in map and not stack:
-14                return False
-15            else:
-16                stack.append(c)
-17        return not stack
+10            if c in map:
+11                if stack:
+12                    if map[c]!=stack.pop():
+13                        return False
+14                else:
+15                    return False
+16            else:
+17                stack.append(c)
+18        return not stack
+19                
