@@ -19,10 +19,11 @@
 19        #   prev   cur        nxt    nxt.next
 20        #   prev  nxt.next    nxt    cur
 21            nxt = cur.next 
-22            cur.next = nxt.next
-23            #往前接上
-24            nxt.next = prev.next 
-25            prev.next = nxt
-26        
-27        return dummy.next
-28            
+22            # cur 指向nxt的下一个节点，然后移动nxt到开头
+23            cur.next = nxt.next
+24            #nxt往前接上
+25            nxt.next = prev.next 
+26            prev.next = nxt
+27        
+28        return dummy.next
+29            
