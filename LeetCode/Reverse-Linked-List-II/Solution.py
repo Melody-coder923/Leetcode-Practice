@@ -5,33 +5,26 @@
 5#         self.next = next
 6class Solution:
 7    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-8        if not head or left == right:
-9            return head
-10        dummy=ListNode(-1)
-11        dummy.next=head
-12        pre = dummy
-13        for i in range(left - 1):
-14            pre = pre.next
-15        start=pre.next
-16        end=start
-17        for i in range(right - left):
-18            end = end.next
-19        
-20        next_node=end.next
-21        end.next=None
-22
-23        new_head=self.reverse(start)
-24        pre.next=new_head
-25        start.next=next_node
-26
-27        return dummy.next
-28        
-29    def reverse(self,head):
-30        pre=None
-31        cur=head
-32        while cur:
-33            nextnode_temp=cur.next
-34            cur.next=pre
-35            pre=cur
-36            cur=nextnode_temp
-37        return pre
+8        dummy=ListNode(-1)
+9        dummy.next=head
+10        pre = dummy
+11        for i in range(left - 1):  
+12            pre = pre.next
+13        start = pre.next
+14        end = start
+15        for i in range(right - left):
+16            end = end.next
+17        next_node = end.next
+18        end.next = None
+19        pre.next = self.reverse(start)
+20        start.next = next_node
+21        return dummy.next
+22    def reverse(self, head):
+23        prev = None
+24        curr = head
+25        while curr:
+26            next_temp = curr.next
+27            curr.next = prev
+28            prev = curr
+29            curr = next_temp
+30        return prev
