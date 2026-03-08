@@ -1,41 +1,25 @@
-1"""
-2# Definition for a Node.
-3class Node:
-4    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
-5        self.val = int(x)
-6        self.next = next
-7        self.random = random
-8"""
-9
-10class Solution:
-11    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-12        # Output: Construct a new linkedlist, val, next, random -> newlinedlist
-13        # [val, random_index]
-14        #Eduge CASE
-15        if not head:
-16            return None
-17        #Step1 Build New node copy origial linkedlist
-18        # map : old node -> new node  NewNode
-19        map={}
-20        cur=head
-21        while cur:
-22            map[cur]=Node(cur.val)
-23            cur=cur.next
-24        
-25        #Step2: build new linkedlist relationship according to old one  Build
-26        cur=head
-27        while cur:
-28            map[cur].next=map.get(cur.next)
-29            map[cur].random=map.get(cur.random)
-30            cur=cur.next
-31        return map[head]
-32
-33
-34
-35
-36
-37
-38
-39        
-40
-41        
+def copyRandomList(self, head: 'Node') -> 'Node':
+    
+    dummy_new = Node(None, None, None)
+    mappings = collections.defaultdict()
+    
+    old_node = head
+    prev_new = dummy_new
+    while old_node:
+        new_node = Node(old_node.val, None, None)
+        mappings[id(old_node)] = new_node
+        prev_new.next = new_node
+        prev_new = new_node
+        old_node = old_node.next
+    
+    old_node = head
+    new_node = dummy_new.next
+    while old_node:
+        if old_node.random == None:
+            new_node.random = None
+        else:
+            new_node.random = mappings[id(old_node.random)]
+        old_node = old_node.next
+        new_node = new_node.next
+    
+    return dummy_new.next
