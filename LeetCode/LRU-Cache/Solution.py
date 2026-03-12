@@ -6,82 +6,65 @@
 6        self.next=None
 7
 8class LRUCache:
-9# dic key-value
-10# double linkedlist
-11#   key    1 2
-12#         node
-13# head    1 2      add  ->tail (val)
-14# head->old->     new tail
-15    
-16#      del      add
-17    def __init__(self, capacity: int):
-18        self.capacity=capacity #容量
-19        self.size=0 # 当下
-20        self.head=Node(0,0)
-21        self.tail=Node(0,0)
-22        self.head.next=self.tail
-23        self.tail.prev=self.head
-24        self.map={} # key-> node
-25    
-26    # speparte  
-27    # size change, map not change
-28    def detach(self,node):
-29        prev_node=node.prev
-30        next_node=node.next
-31
-32        prev_node.next=next_node
-33        next_node.prev=prev_node
+9
+10    def __init__(self, capacity: int):
+11        self.capacity=capacity
+12        self.map={}
+13        self.head=Node(0,0)
+14        self.tail=Node(0,0)
+15        self.head.next=self.tail
+16        self.tail.prev=self.head
+17        self.size=0
+18    
+19    def detach(self,node):
+20        prev_node=node.prev
+21        next_node=node.next
+22
+23        prev_node.next=next_node
+24        next_node.prev=prev_node
+25        # 没从map删除
+26    def add(self,node):
+27        node.next=self.tail
+28        prev_node=self.tail.prev
+29        node.prev=prev_node
+30
+31        prev_node.next=node
+32        self.tail.prev=node
+33        #没增加map
 34
-35        self.size-=1
-36        
-37
-38    # add at last
-39    # size change here and map not change
-40    def add(self,node):
-41        node.next=self.tail
-42        node.prev=self.tail.prev
-43
-44        self.tail.prev.next=node
-45        self.tail.prev=node
-46
-47        self.size+=1
-48
-49        
-50    def get(self, key: int) -> int:
-51        if key in self.map:
-52            node=self.map[key]
-53            # move the node to last
-54            self.detach(node)
-55            self.add(node)
-56            return node.val
-57        return -1
-58    
-59    # remember change map 
-60    def put(self, key: int, value: int) -> None:
-61       # if exist: find key ->update val
-62        if key in self.map:
-63            node=self.map[key]
-64            #update vale
-65            node.val=value
-66            #move to last 
-67            self.detach(node)
-68            self.add(node)
-69            
-70       # if not exist -> check size(Del)-> add
-71        else:
-72            newNode= Node(key,value)
-73            if self.size==self.capacity:
-74                #delete old
-75                d_node=self.head.next
-76                self.detach(d_node)
-77                del self.map[d_node.key]
-78                # create node and add new node
-79            # 不管超没超都要加
-80            self.add(newNode)
-81            self.map[key]=newNode
-82                  
-83
-84# Your LRUCache object will be instantiated and called as such:
-85# obj = LRUCache(capacity)
-86# param_1 = obj.get(key)
-87# obj.put(key,value)
+35    def get(self, key: int) -> int:
+36        if key not in self.map:
+37            return -1
+38        #如果在里面
+39        node=self.map[key]
+40        #move node到最后，先删，再补
+41        self.detach(node)
+42        self.add(node)
+43        return node.val
+44
+45    def put(self, key: int, value: int) -> None:
+46        if key in self.map:
+47            node=self.map[key]
+48            node.val=value
+49            self.detach(node)
+50            self.add(node)
+51        else:
+52            new_node = Node(key, value)
+53            if self.size== self.capacity:
+54                del self.map[self.head.next.key]
+55                self.detach(self.head.next)
+56                self.add(new_node)
+57            else:
+58                self.add(new_node)
+59                self.size+=1
+60
+61            self.map[key]=new_node
+62            
+63            
+64            
+65
+66
+67# Your LRUCache object will be instantiated and called as such:
+68# obj = LRUCache(capacity)
+69# param_1 = obj.get(key)
+70# obj.put(key,value)
