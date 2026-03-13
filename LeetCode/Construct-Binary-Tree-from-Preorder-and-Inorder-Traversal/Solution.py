@@ -19,5 +19,7 @@
 19
 20            root.left = helper(left, idx - 1)
 21            root.right = helper(idx + 1, right)
-22            return root
-23        return helper(0,len(inorder)-1)
+22
+23            return root
+24
+25        return helper(0,len(inorder)-1)
