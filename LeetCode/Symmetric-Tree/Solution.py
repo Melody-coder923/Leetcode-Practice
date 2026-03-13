@@ -6,15 +6,11 @@
 6#         self.right = right
 7class Solution:
 8    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-9        def helper(p,q):
-10            if not p and not q:
-11                return True
-12            if not p or not q or p.val!=q.val:
-13                return False
-14            return helper(p.left,q.right) and helper(p.right,q.left)
-15        if not root:
-16            return True
-17        return helper(root.left,root.right)
-18
-19    
-20    
+9        
+10        def dfs(p,q):
+11            if not p and not q:
+12                return True
+13            if not p or not q or p.val!=q.val:
+14                return False
+15            return dfs(p.left,q.right) and dfs(p.right,q.left)
+16        return dfs(root.left,root.right)
