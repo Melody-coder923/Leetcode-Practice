@@ -8,4 +8,3 @@
 8                if dp[j] and s[j:i] in wordDict:
 9                    dp[i]=True
 10        return dp[n]
-11
