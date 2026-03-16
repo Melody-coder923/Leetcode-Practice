@@ -12,19 +12,19 @@
 12    def connect(self, root: 'Node') -> 'Node':
 13        if not root:
 14            return root
-15        queue=collections.deque([root])
-16    
-17        while queue:
-18            level_size=len(queue)
-19            prev=None
-20            for _ in range(level_size):
-21                node=queue.popleft()
-22                if prev:
-23                    prev.next=node
-24                prev=node
-25                if node.left:
-26                    queue.append(node.left)
-27                if node.right:
-28                    queue.append(node.right)
-29        return root
-30
+15        q= deque([root])
+16        while q:
+17            size=len(q)
+18            prev=None
+19            for _ in range(size):
+20                node=q.popleft()
+21                if prev!=None:
+22                    prev.next=node
+23                prev=node              
+24                if node.left:
+25                    q.append(node.left)
+26                if node.right:
+27                    q.append(node.right)
+28            prev.next=None
+29
+30        return root
