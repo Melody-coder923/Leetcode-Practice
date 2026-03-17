@@ -2,7 +2,7 @@
 2    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
 3        wordDict=set(wordDict)
 4        memo={}
-5
+5        
 6        def dfs(i):
 7            if i==len(s):
 8                return [""]
@@ -17,6 +17,6 @@
 17                        res.append((prefix+" "+word).strip())
 18            memo[i]=res
 19            return res
-20        return dfs(0)
-21                        
-22                
+20
+21        return dfs(0)
+22
