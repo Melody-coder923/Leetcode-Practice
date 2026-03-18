@@ -1,0 +1,1 @@
+return merge(intervals).length == intervals.length;    
