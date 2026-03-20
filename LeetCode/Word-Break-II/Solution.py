@@ -1,23 +1,21 @@
 1class Solution:
 2    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-3        # dp[i] 以i为结尾看前缀是否能凑出来, 存的列表
-4        n=len(s)
-5        dp = [[] for _ in range(n + 1)]
-6        # 初始化dp
-7        dp[0]= [""]
-8
-9        wordDict=set(wordDict)
-10       # 填充dp
-11        for i in range(n+1):
-12            for j in range(i):
-13                if s[j:i] in wordDict:
-14                    suffix=s[j:i]
-15                    tmp=dp[j]
-16                    for word in tmp:
-17                        dp[i].append((word+" "+suffix).strip())
-18        return dp[n]
-19                    
-20
-21
-22
-23
+3        n=len(s)
+4        wordDict=set(wordDict)
+5        @lru_cache(None)
+6        def dfs(end):
+7            #base case
+8            if end==0:
+9                return [""]
+10            # recursive rule
+11            res=[]
+12            for start in range(end):
+13            #break down
+14                suffix=s[start:end]
+15                if suffix in wordDict:
+16                    tmp=dfs(start)
+17                    for word in tmp:
+18                        res.append((word+" "+ suffix).strip())
+19            return res
+20        return dfs(n)
+21 
