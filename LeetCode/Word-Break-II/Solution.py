@@ -1,22 +1,23 @@
 1class Solution:
 2    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-3        wordDict=set(wordDict)
-4        memo={}
-5        
-6        def dfs(i):
-7            if i==len(s):
-8                return [""]
-9            if i in memo:
-10                return memo[i]
-11            res=[]
-12            for j in range(i+1,len(s)+1):
-13                prefix=s[i:j]
-14                if prefix in wordDict:
-15                    tmp=dfs(j)
+3        # dp[i] 以i为结尾看前缀是否能凑出来, 存的列表
+4        n=len(s)
+5        dp = [[] for _ in range(n + 1)]
+6        # 初始化dp
+7        dp[0]= [""]
+8
+9        wordDict=set(wordDict)
+10       # 填充dp
+11        for i in range(n+1):
+12            for j in range(i):
+13                if s[j:i] in wordDict:
+14                    suffix=s[j:i]
+15                    tmp=dp[j]
 16                    for word in tmp:
-17                        res.append((prefix+" "+word).strip())
-18            memo[i]=res
-19            return res
+17                        dp[i].append((word+" "+suffix).strip())
+18        return dp[n]
+19                    
 20
-21        return dfs(0)
+21
 22
+23
