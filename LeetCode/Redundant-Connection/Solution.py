@@ -20,8 +20,7 @@
 20            parents[root_y]=root_x
 21            return True
 22        
-23        res=[]
-24        for u,v in edges:
-25            if not union(u,v):
-26                return [u,v]
-27    
+23        for u,v in edges:
+24            if not union(u,v):
+25                return [u,v]
+26    
