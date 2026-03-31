@@ -1,15 +1,13 @@
 1class Solution:
 2    def increasingTriplet(self, nums: List[int]) -> bool:
-3        first,second=float("inf"),float("inf")
-4    
-5        for n in nums:
-6            if n<first:
-7                first=n
-8            if n>first and n<second:
-9                second=n
-10            if n>first and n>second:
+3        v1=v2=float("inf")
+4        #v1<v2<num
+5        for num in nums:
+6            if num<v1:
+7                v1=num
+8            if num>v1 and num<v2:
+9                v2=num
+10            if num>v1 and num>v2:
 11                return True
 12        return False
-13
-14            
-15            
+13            
