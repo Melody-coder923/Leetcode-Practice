@@ -1,25 +1,18 @@
-1class Solution:
-2    from collections import Counter
+1from collections import Counter
+2class Solution:
 3    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-4        #Edge case
-5        if len(nums)<=k:
-6            return list(set(nums))
-7        res=[]
-8        #step1: counter 计算频率
-9        count= Counter(nums)
-10        min_heap=[]
-11        #step2: min_heap : (freq, num)    len(min_heap)<k
-12        for num,freq in count.items():
-13            if len(min_heap)<k:
-14                heapq.heappush(min_heap,(freq,num))
-15            elif min_heap[0][0]<freq:  #heap 全局freq最高得最小堆 (3,1),(2,2)    (4,3)
-16                    heapq.heappop(min_heap)
-17                    heapq.heappush(min_heap,(freq,num))
-18        
-19        #step3: 搜集结果
-20        while min_heap:
-21            freq,num = heapq.heappop(min_heap)
-22            res.append(num)
-23
-24        return res
-25            
+4        min_heap=[]
+5        count=Counter(nums)
+6        for value,freq in count.items():
+7                if len(min_heap)<k:
+8                    heapq.heappush(min_heap,(freq,value))
+9                elif min_heap[0][0]<freq:
+10                        heapq.heappop(min_heap)
+11                        heapq.heappush(min_heap,(freq,value))
+12        res=[]
+13        while min_heap:
+14            freq,value=heapq.heappop(min_heap)
+15            res.append(value)
+16        return res
+17        
+18       
