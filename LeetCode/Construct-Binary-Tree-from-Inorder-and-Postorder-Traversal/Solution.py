@@ -6,14 +6,21 @@
 6#         self.right = right
 7class Solution:
 8    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-9        if not inorder or not postorder:
-10            return 
-11        root_val=postorder.pop()
-12        root=TreeNode(root_val)
-13        idx=inorder.index(root_val)
-14        root.right= self.buildTree(inorder[idx+1:],postorder)
-15        root.left= self.buildTree(inorder[:idx],postorder)
-16        return root
-17
-18    
-19    
+9        #inorder: left,root,right
+10        #               idx
+11        #postorder: left,right,root
+12        #root ->root_val= postorder.pop()
+13        # build TreeNode
+14        # idx=inorder.index(root_val)
+15        #root.left=inorder[:idx]
+16        #root.right=inorder[idx+1:]
+17        if not inorder or not postorder:
+18            return
+19        root_val= postorder.pop()
+20        root=TreeNode(root_val)
+21        idx= inorder.index(root_val)
+22        root.right=self.buildTree(inorder[idx+1:],postorder)
+23        root.left=self.buildTree(inorder[:idx],postorder)
+24
+25        return root
+26
