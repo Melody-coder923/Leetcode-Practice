@@ -23,4 +23,3 @@
 23        root.left=self.buildTree(inorder[:idx],postorder)
 24
 25        return root
-26
