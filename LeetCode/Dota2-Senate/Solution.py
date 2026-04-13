@@ -1,31 +1,28 @@
 1class Solution:
 2    def predictPartyVictory(self, senate: str) -> str:
-3        n = len(senate)
-4        # 1. 初始入队：分别记录两个阵营议员的原始下标
-5        radiant = deque()
-6        dire = deque()
-7        
-8        for i, s in enumerate(senate):
-9            if s == 'R':
-10                radiant.append(i)
+3        #NEXT ROUND
+4        q1=deque() 
+5        q2=deque()
+6        #for senate
+7        n=len(senate)
+8        for idx, s in enumerate(senate):
+9            if s=="R":
+10                q1.append(idx)
 11            else:
-12                dire.append(i)
+12                q2.append(idx)
 13        
-14        # 2. 模拟投票过程
-15        # 只要两个队列都不为空，说明斗争还在继续
-16        while radiant and dire:
-17            r_idx = radiant.popleft()
-18            d_idx = dire.popleft()
-19            
-20            # 谁的下标小，谁就先行使权利（禁言对方）
-21            if r_idx < d_idx:
-22                # Radiant 先手，禁言掉当前的 Dire
-23                # Radiant 议员获得进入下一轮的机会，下标更新为 i + n
-24                radiant.append(r_idx + n)
-25            else:
-26                # Dire 先手，禁言掉当前的 Radiant
-27                # Dire 议员获得进入下一轮的机会，下标更新为 i + n
-28                dire.append(d_idx + n)
-29        
-30        # 3. 宣布胜利：哪个队列还有人，哪方就赢了
-31        return "Radiant" if radiant else "Dire"
+14        while q1 and q2:
+15            if q1[0]<q2[0]:
+16                q2.popleft()
+17                nxt=q1.popleft()
+18                q1.append(nxt+n)
+19            else:
+20                q1.popleft()
+21                nxt=q2.popleft()
+22                q2.append(nxt+n)
+23        return "Radiant" if q1 else "Dire"
+24        
+25
+26
+27                
+28            
