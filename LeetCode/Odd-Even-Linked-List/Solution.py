@@ -7,17 +7,13 @@
 7    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 8        if not head or not head.next:
 9            return head
-10        
-11        odd=head
-12        even=head.next
-13        evenHead=even
-14
-15        while even and even.next:
-16            odd.next=even.next
-17            odd=odd.next
-18
-19            even.next= odd.next
-20            even=even.next
-21
-22        odd.next=evenHead
-23        return head
+10        odd=head
+11        even=head.next
+12        even_head=even
+13        while even and even.next:
+14            odd.next=even.next
+15            odd=odd.next
+16            even.next=odd.next
+17            even=even.next
+18        odd.next=even_head
+19        return head
