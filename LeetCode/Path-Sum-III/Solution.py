@@ -5,18 +5,27 @@
 5#         self.left = left
 6#         self.right = right
 7class Solution:
-8    def countPathFromNode(self, node, targetSum):
-9        if not node:
-10            return 0
-11        count = 1 if node.val == targetSum else 0
-12        count += self.countPathFromNode(node.left, targetSum - node.val)
-13        count += self.countPathFromNode(node.right, targetSum - node.val)
-14        return count
-15
-16    def pathSum(self, root, targetSum):
-17        if not root:
-18            return 0
-19        count_from_root = self.countPathFromNode(root, targetSum)
-20        count_from_left = self.pathSum(root.left, targetSum)
-21        count_from_right = self.pathSum(root.right, targetSum)
-22        return count_from_root + count_from_left + count_from_right
+8    # 求count
+9    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int: #return targetSum
+10        prefix=defaultdict(int)
+11        prefix[0] = 1
+12        count=0
+13        def dfs(node,curSum):
+14            nonlocal count
+15            if not node:
+16                return 
+17            curSum+=node.val
+18            if curSum - targetSum in prefix:
+19                count += prefix[curSum - targetSum]
+20            prefix[curSum]+=1
+21            dfs(node.left,curSum)
+22            dfs(node.right,curSum)
+23            prefix[curSum] -= 1
+24        dfs(root, 0)
+25        return count
+26            
+27            
+28
+29
+30
+31            
