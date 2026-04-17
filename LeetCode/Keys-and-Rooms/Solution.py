@@ -1,12 +1,12 @@
 1class Solution:
 2    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-3        visited = set()
-4        def dfs(room):
-5            if room in visited:
-6                return
-7            visited.add(room)
+3        visited=set()
+4        q=deque([0])
+5        visited.add(0)
+6        while q:
+7            room=q.popleft()
 8            for key in rooms[room]:
-9                dfs(key)
-10
-11        dfs(0)
-12        return len(visited) == len(rooms)
+9                if key not in visited:
+10                    visited.add(key)
+11                    q.append(key)    
+12        return len(visited)==len(rooms)
