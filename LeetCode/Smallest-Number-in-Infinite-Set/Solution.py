@@ -1,30 +1,26 @@
-1import heapq
-2class SmallestInfiniteSet:
-3
-4    def __init__(self):
-5        self.current_num =1
-6        self.min_heap = []
-7        self.heap_elements_set = set()
+1class SmallestInfiniteSet:
+2
+3    def __init__(self):
+4        # set check if it already in the set
+5        self.num_set=set() # 放add back 数，功能是查重复
+6        self.smallest=1  # 原始的最小的1
+7        self.min_heap=[] #放add back 数
 8
 9    def popSmallest(self) -> int:
 10        if self.min_heap:
-11            smallest = heapq.heappop(self.min_heap)
-12            self.heap_elements_set.remove(smallest)
-13            return smallest
+11            num=heapq.heappop(self.min_heap)
+12            self.num_set.remove(num)
+13            return num
 14        else:
-15            smallest = self.current_num
-16            self.current_num +=1
-17            return smallest
-18
-19
-20    def addBack(self, num: int) -> None:
-21        if num < self.current_num:
-22            if num not in self.heap_elements_set:
-23                heapq.heappush(self.min_heap, num)
-24                self.heap_elements_set.add(num)   
-25
-26
-27# Your SmallestInfiniteSet object will be instantiated and called as such:
-28# obj = SmallestInfiniteSet()
-29# param_1 = obj.popSmallest()
-30# obj.addBack(num)
+15            self.smallest+=1
+16            return self.smallest-1
+17        
+18    def addBack(self, num: int) -> None:
+19        if num not in self.num_set and num <self.smallest:
+20            heapq.heappush(self.min_heap,num) #min_heap [3]
+21            self.num_set.add(num)  #num_set [3]
+22 
+23# Your SmallestInfiniteSet object will be instantiated and called as such:
+24# obj = SmallestInfiniteSet()
+25# param_1 = obj.popSmallest()
+26# obj.addBack(num)
