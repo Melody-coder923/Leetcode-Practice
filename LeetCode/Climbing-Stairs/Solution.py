@@ -7,11 +7,12 @@
 7        #dp[i]: 到i位置有多少方法 
 8        dp= [0] * (n+1) 
 9        # base case 
-10        dp[0]=1
-11        dp[1]=1
-12        dp[2]=2
-13        # update the dp matrix
-14        for i in range(3,n+1):
-15            dp[i]=dp[i-1]+dp[i-2]
-16        # res(check and return )
-17        return dp[n]
+10        a=1
+11        b=2
+12        # update the dp matrix
+13        for i in range(3,n+1):
+14            cur = a + b
+15            a = b
+16            b = cur
+17        return b
+18      
