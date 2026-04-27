@@ -1,8 +1,28 @@
-[2,3,2]
-[1,2,3,1]
-[1,2,3]
-[1,2,1,1]
-[1,2,3,4,5,1,2,3,4,5]
-[200,3,140,20,10]
-[1]
-[94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72]
+1class Solution:
+2    def rob(self, nums: List[int]) -> int:
+3        n = len(nums)
+4        if n == 1:
+5            return nums[0]
+6        def helper(arr):
+7            n = len(arr)
+8
+9            if n == 0:
+10                return 0
+11            if n == 1:
+12                return arr[0]
+13            if n == 2:
+14                return max(arr[0], arr[1])
+15
+16            prev_nei = arr[0]
+17            nei = max(arr[0], arr[1])
+18
+19            for i in range(2, n):
+20                curr = max(prev_nei + arr[i], nei)
+21                prev_nei, nei = nei, curr
+22
+23            return curr
+24
+25        return max(
+26            helper(nums[:-1]),
+27            helper(nums[1:])
+28        )
