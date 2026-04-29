@@ -1,25 +1,28 @@
 1class Solution:
 2    def rob(self, nums: List[int]) -> int:
-3        #edge case
-4        n=len(nums)
-5        if n==1:
-6            return nums[0]
-7        if n==2:
-8            return max(nums[0],nums[1])
-9        #def dp i 为结尾的最多能投多少
-10        # build dp and initialize 
-11        def dp_function(arr):
-12            n=len(arr)
-13            if n==1:
-14                return arr[0]
-15            if n==2:
-16                return max(arr[0],arr[1])
-17            dp= [0]* n
-18            dp[0]= arr[0]
-19            dp[1]=max(arr[0],arr[1])
-20            # transition
-21            for i in range(2,n):
-22                dp[i]= max(dp[i-1],dp[i-2]+arr[i])
-23            return dp[-1]
+3        n = len(nums)
+4        if n == 1:
+5            return nums[0]
+6        def helper(arr):
+7            n = len(arr)
+8
+9            if n == 0:
+10                return 0
+11            if n == 1:
+12                return arr[0]
+13            if n == 2:
+14                return max(arr[0], arr[1])
+15
+16            prev_nei = arr[0]
+17            nei = max(arr[0], arr[1])
+18
+19            for i in range(2, n):
+20                curr = max(prev_nei + arr[i], nei)
+21                prev_nei, nei = nei, curr
+22
+23            return curr
 24
-25        return max(dp_function(nums[1:]),dp_function(nums[:-1]))
+25        return max(
+26            helper(nums[:-1]),
+27            helper(nums[1:])
+28        )
