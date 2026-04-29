@@ -14,12 +14,14 @@
 14                return arr[0]
 15            if n==2:
 16                return max(arr[0],arr[1])
-17            dp= [0]* n
-18            dp[0]= arr[0]
-19            dp[1]=max(arr[0],arr[1])
+17    
+18            pre_nei= arr[0]
+19            nei=max(arr[0],arr[1])
 20            # transition
 21            for i in range(2,n):
-22                dp[i]= max(dp[i-1],dp[i-2]+arr[i])
-23            return dp[-1]
-24
-25        return max(dp_function(nums[1:]),dp_function(nums[:-1]))
+22                curr= max(nei,pre_nei+arr[i])
+23                pre_nei=nei
+24                nei=curr
+25            return curr
+26
+27        return max(dp_function(nums[1:]),dp_function(nums[:-1]))
