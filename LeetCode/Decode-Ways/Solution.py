@@ -14,4 +14,7 @@
 14            if 10 <= two_digit <= 26:
 15                dp[i] += dp[i-2]
 16        return dp[n]
-17
+17"""
+18s   0 1.   n-2 n-1 
+19dp                  n
+20"""
