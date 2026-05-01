@@ -15,7 +15,7 @@
 15                    if dfs(nx,ny,idx+1):
 16                        return True
 17            board[i][j]=temp
-18            
+18            return False
 19        idx=0
 20        for i in range(m):
 21            for j in range(n):
