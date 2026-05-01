@@ -1,28 +1,25 @@
 1class Solution:
 2    def exist(self, board: List[List[str]], word: str) -> bool:
 3        m,n=len(board),len(board[0])
-4        if len(word)> m*n:
-5            return False
-6        
-7        directions=[(1,0),(-1,0),(0,1),(0,-1)]
-8        def dfs(x,y,index):
-9            if x<0 or x>=m or y<0 or y>=n or board[x][y]==1 or board[x][y]!=word[index]:
-10                return False
-11            if index==len(word)-1:
-12                return True
-13            temp=board[x][y]
-14            board[x][y]=1
-15            for dx,dy in directions:
-16                nx,ny=x+dx, y+dy
-17                if dfs(nx, ny, index + 1):
-18                    return True
-19            board[x][y]=temp
-20        
-21        for i in range(m):
-22            for j in range(n):
-23                if board[i][j]==word[0]:
-24                    if dfs(i,j,0):
-25                        return True
-26        return False
-27
-28
+4        directions=[(-1,0),(0,1),(1,0),(0,-1)]
+5        def dfs(i,j,idx):
+6            if word[idx]!=board[i][j]:
+7                return False
+8            if idx==len(word)-1:
+9                return True
+10            temp=board[i][j]
+11            board[i][j]=1
+12            for dx,dy in directions:
+13                nx,ny=dx+i,dy+j
+14                if 0<=nx<m and 0<=ny<n and board[nx][ny]!=1:
+15                    if dfs(nx,ny,idx+1):
+16                        return True
+17            board[i][j]=temp
+18            
+19        idx=0
+20        for i in range(m):
+21            for j in range(n):
+22                if board[i][j]==word[idx]:
+23                    if dfs(i,j,idx):
+24                        return True
+25        return False
