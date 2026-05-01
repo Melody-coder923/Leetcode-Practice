@@ -1,20 +1,26 @@
 1class Solution:
 2    def numDecodings(self, s: str) -> int:
 3        n = len(s)
-4        if s[0]=="0":
-5            return 0
-6        dp = [0] * (n + 1)  #dp[i] = s[0:i] 这一段前 i 个字符，有多少种解码方式，s[0:i] 不包含下标 i。
-7        dp[0] = 1 # 为了让dp[2] += dp[0]成立，所以必须为1
-8        dp[1] = 0 if s[0] == '0' else 1
-9
-10        for i in range(2, n + 1):
-11            if s[i-1] != '0':
-12                dp[i] += dp[i-1]
-13            two_digit = int(s[i-2:i])
-14            if 10 <= two_digit <= 26:
-15                dp[i] += dp[i-2]
-16        return dp[n]
-17"""
-18s   0 1.   n-2 n-1 
-19dp                  n
-20"""
+4
+5        # dp[0]
+6        prev2 = 1
+7
+8        # dp[1]
+9        prev1 = 0 if s[0] == '0' else 1
+10
+11        for i in range(2, n + 1):
+12            curr = 0
+13
+14            # 最后 1 位单独解码
+15            if s[i - 1] != '0':
+16                curr += prev1
+17
+18            # 最后 2 位一起解码
+19            two_digit = int(s[i - 2:i])
+20            if 10 <= two_digit <= 26:
+21                curr += prev2
+22
+23            # 往后滚动
+24            prev2, prev1 = prev1, curr
+25
+26        return prev1
