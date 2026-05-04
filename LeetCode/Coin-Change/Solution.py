@@ -1,29 +1,16 @@
-1class Solution:
-2    def coinChange(self, coins: List[int], amount: int) -> int:
-3        m=len(coins)
-4
-5        @lru_cache(None)
-6        def dfs(target):
-7            if target==0:
-8                return 0
-9            if target<0:
-10                return float("inf")
-11            res= float("inf")
-12            #break down
-13            for coin in coins:
-14                res=min(res,dfs(target-coin)+1)
-15
-16            return res
-17        res=dfs(amount)
-18        return res if res!=float("inf") else -1
-19
-20    """
-21            amounts
-22              0  1. 2  3  4  5 6 7 8 9 10 11
-23    coins 0   0. e  e. e  e. e e e e e e   e
-24          1   0  
-25          2   0
-26          5   0
-27
-28    """
-29
+[1,2,5]
+100
+[186,419,83,408]
+6249
+[3,7,405,436]
+8839
+[176,6,366,357,484,226,1,104,160,331]
+5557
+[19,28,176,112,30,260,491,128,70,137,253]
+8539
+[370,417,408,156,143,434,168,83,177,280,117]
+9953
+[2,4,6,8,10,12,14,16,18,20,22,24]
+9999
+[2,4,6]
+9999
