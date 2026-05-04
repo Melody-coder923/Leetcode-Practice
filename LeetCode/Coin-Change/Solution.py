@@ -1,16 +1,18 @@
-[1,2,5]
-100
-[186,419,83,408]
-6249
-[3,7,405,436]
-8839
-[176,6,366,357,484,226,1,104,160,331]
-5557
-[19,28,176,112,30,260,491,128,70,137,253]
-8539
-[370,417,408,156,143,434,168,83,177,280,117]
-9953
-[2,4,6,8,10,12,14,16,18,20,22,24]
-9999
-[2,4,6]
-9999
+1class Solution:
+2    from collections import deque
+3    def coinChange(self, coins: List[int], amount: int) -> int:
+4        q=deque([0])
+5        level=0
+6        visited={0}
+7        while q:
+8            for _ in range(len(q)):
+9                curr=q.popleft()
+10                if curr ==amount:
+11                    return level
+12                for coin in coins:
+13                    nxt=curr+coin
+14                    if nxt not in visited and nxt<=amount:
+15                        q.append(nxt)
+16                        visited.add(nxt)
+17            level+=1
+18        return -1
