@@ -1,16 +1,11 @@
-[1,2,5]
-100
-[186,419,83,408]
-6249
-[3,7,405,436]
-8839
-[176,6,366,357,484,226,1,104,160,331]
-5557
-[19,28,176,112,30,260,491,128,70,137,253]
-8539
-[370,417,408,156,143,434,168,83,177,280,117]
-9953
-[2,4,6,8,10,12,14,16,18,20,22,24]
-9999
-[2,4,6]
-9999
+1class Solution:
+2    def coinChange(self, coins: List[int], amount: int) -> int:
+3        """dp[i] 表示凑出金额 i 所需的最少硬币数"""
+4        dp = [float('inf')] * (amount + 1)
+5        dp[0] = 0
+6
+7        for coin in coins:
+8            for i in range(coin, amount + 1):
+9                dp[i] = min(dp[i], dp[i - coin] + 1)
+10
+11        return dp[amount] if dp[amount] != float('inf') else -1
