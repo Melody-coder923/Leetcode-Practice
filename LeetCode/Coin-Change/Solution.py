@@ -1,19 +1,16 @@
 1class Solution:
 2    def coinChange(self, coins: List[int], amount: int) -> int:
-3        #memo
-4        count=0
-5        @lru_cache(None)
-6        #def dfs
-7        def dfs(remain):
-8            #base case
-9            if remain==0:
-10                return 0
-11            if remain<0:
-12                return float("inf")
-13            res=float("inf")
-14            # break down
-15            for coin in coins:
-16                res=min(res,dfs(remain-coin)+1)
-17            return res
-18        res= dfs(amount) 
-19        return res if res!=float("inf") else -1
+3        #物品: coins -i (可重复)
+4        #背包: amount -j 
+5        m=len(coins)
+6        dp= [[float("inf")] * (amount+1) for _ in range(m+1)]
+7        for i in range(m+1):
+8            dp[i][0]=0
+9        
+10        for i in range(1,m+1):
+11            for j in range(amount+1):
+12                dp[i][j]=dp[i-1][j]
+13                if j>=coins[i-1] and dp[i][j-coins[i-1]]!=float("inf"):
+14                    dp[i][j]=min(dp[i][j],dp[i][j-coins[i-1]]+1)
+15        return dp[m][amount] if dp[m][amount]!=float("inf") else -1
+16
