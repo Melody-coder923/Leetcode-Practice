@@ -1,14 +1,18 @@
 1class Solution:
 2    def countSubstrings(self, s: str) -> int:
 3        n=len(s)
-4        dp = [[False] * n for _ in range(n)]
-5        count=0
-6        for i in range(n-1,-1,-1):
-7            for j in range(i,n):
-8                if s[i]==s[j] and (j-i<3 or dp[i+1][j-1]):
-9                    dp[i][j]=True
-10                    count+=1
-11        
-12        return count
-13        
-14
+4        count=0
+5
+6        def expand(l,r):
+7            nonlocal count
+8            while l >= 0 and r < n and s[l] == s[r]:
+9                count+=1
+10                l-=1
+11                r+=1
+12    
+13
+14        for i in range(n):
+15            expand(i,i)
+16            expand(i,i+1)
+17        return count
+18            
