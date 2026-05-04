@@ -42,12 +42,12 @@
 42
 43            if node.is_end:
 44                res.append(node.is_word)
-45                node.is_end = False   # ✅ 去重关键
+45                node.is_end = False   
 46
 47            for dx, dy in directions:
 48                dfs(x + dx, y + dy, node)
 49
-50            visited[x][y] = False    # 回溯
+50            visited[x][y] = False    
 51
 52        for i in range(m):
 53            for j in range(n):
