@@ -3,30 +3,26 @@
 3        """
 4        Do not return anything, modify nums in-place instead.
 5        """
-6class Solution:
-7    def nextPermutation(self, nums: List[int]) -> None:
-8        n = len(nums)
-9        if n <= 1:
-10            return
-11        
-12        i = n - 2
-13        
-14        # 1. 找从右往左第一个降点
-15        while i >= 0 and nums[i] >= nums[i + 1]:
-16            i -= 1
+6        # scan from right to left to find the first nums[i]>=nums[i+1]
+7        n=len(nums)
+8        if n <= 1:
+9            return
+10        i=n-2
+11        while i>=0 and nums[i]>=nums[i+1]:
+12            i-=1
+13        # i will stop at the nums[i]> nums[i+1]     1 2 3 5 4      1 2  4 3 4
+14        if i < 0:  # 全递减，如 3 2 1
+15            nums.reverse()
+16            return
 17        
-18        if i < 0:  # 全递减，如 3 2 1
-19            nums.reverse()
-20            return
-21        
-22        # 2. 从右找到第一个比 nums[i] 大的
-23        j = n - 1
-24        while nums[j] <= nums[i]:
-25            j -= 1
-26        
-27        # 3. 交换
-28        nums[i], nums[j] = nums[j], nums[i]
-29        
-30        # 4. 将 i+1 到末尾反转（保证是最小升序）
-31        nums[i + 1:] = reversed(nums[i + 1:])
-32
+18        # find the first bigger number from right
+19        j=n-1
+20        while nums[j]<=nums[i]:
+21            j-=1
+22        nums[i],nums[j]=nums[j],nums[i]
+23        
+24        left,right=i+1,n-1
+25        while left<right:
+26            nums[left], nums[right] = nums[right], nums[left]
+27            left += 1
+28            right -= 1
