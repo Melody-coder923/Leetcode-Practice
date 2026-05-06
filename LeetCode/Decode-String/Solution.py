@@ -1,31 +1,22 @@
 1class Solution:
 2    def decodeString(self, s: str) -> str:
-3        def dfs(i):
-4            res=""
-5            num=0
-6            while i<len(s):
-7                ch=s[i]
-8                if ch.isdigit():
-9                    num=num*10+ int(ch)
-10                    i+=1
-11                #遇到 [ 递归进去
-12                elif ch=="[":
-13                    inner,i=dfs(i+1)
-14                    res+=num*inner
-15                    num=0
-16                # 遇到 ] → 当前层结束返回
-17                elif ch=="]":
-18                    return res,i+1
-19                else:
-20                    res+=ch
-21                    i+=1
-22            return res, i 
-23            
-24        ans, _ = dfs(0)
-25        return ans
-26                
-27
-28
-29                
-30
-31
+3        stack=[]
+4        num=0
+5        curr=""
+6        cur_num=0
+7        res=""
+8        for c in s:
+9            if c.isdigit():
+10                num=num*10+int(c)
+11            elif c=="[":
+12                stack.append((curr, num))
+13                curr=""
+14                num=0
+15            elif c=="]":
+16                prev, repeat = stack.pop()
+17                curr = prev + repeat * curr
+18            else:
+19                curr=curr+c
+20
+21        return curr
+22       
