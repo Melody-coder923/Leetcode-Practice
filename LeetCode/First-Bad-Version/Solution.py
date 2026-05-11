@@ -3,11 +3,12 @@
 3
 4class Solution:
 5    def firstBadVersion(self, n: int) -> int:
-6        l,r=1,n        #最后一个坏版本     
-7        while l<=r:
-8            mid=(l+r)//2
-9            if isBadVersion(mid)==True:
-10                r=mid-1  #mid是坏的,第一个坏的在左边或者就是mid
-11            elif isBadVersion(mid)==False:
-12                l=mid+1   #mid是好的,坏在mid右边
-13        return l 
+6        l, r = 1, n   # 版本从1开始，r开区间所以+1
+7    
+8        while l < r:
+9            mid = l + (r - l) // 2  # 防溢出
+10            if isBadVersion(mid):
+11                r = mid      # 是错误版本，答案在mid或左边
+12            else:
+13                l = mid + 1  # 是好版本，答案在右边
+14        return l
