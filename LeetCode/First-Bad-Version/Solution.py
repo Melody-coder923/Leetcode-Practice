@@ -3,7 +3,7 @@
 3
 4class Solution:
 5    def firstBadVersion(self, n: int) -> int:
-6        l, r = 1, n   # 版本从1开始，r开区间所以+1
+6        l, r = 1, n+1   # 版本从1开始，r开区间所以+1
 7    
 8        while l < r:
 9            mid = l + (r - l) // 2  # 防溢出
