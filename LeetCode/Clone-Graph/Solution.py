@@ -11,19 +11,16 @@
 11    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
 12        if not node:
 13            return None
-14        
-15        visited = {}
-16        
-17        def dfs(n):
-18            if n in visited:
-19                return visited[n]
-20            
-21            copy = Node(n.val)
-22            visited[n] = copy
-23            
-24            for nei in n.neighbors:
-25                copy.neighbors.append(dfs(nei))
-26            
-27            return copy
-28        
-29        return dfs(node)
+14        visited = {}
+15
+16        def dfs(node):
+17            if node in visited:
+18                return visited[node]
+19            
+20            newNode=Node(node.val)
+21            visited[node]=newNode
+22
+23            for nei in node.neighbors:
+24                newNode.neighbors.append(dfs(nei))
+25            return newNode
+26        return dfs(node)
