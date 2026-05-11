@@ -3,7 +3,7 @@
 3
 4class Solution:
 5    def firstBadVersion(self, n: int) -> int:
-6        l,r=1,n
+6        l,r=1,n+1
 7        while l<r:
 8            mid=l+(r-l)//2
 9            if isBadVersion(mid):
