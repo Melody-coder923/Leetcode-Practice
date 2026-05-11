@@ -10,6 +10,6 @@
 10            if nums[mid]>nums[r]:
 11                l=mid+1
 12            else:
-13                r=mid  # 不排除mid 
+13                r=mid
 14
 15        return nums[l]
