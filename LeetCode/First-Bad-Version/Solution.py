@@ -10,5 +10,4 @@
 10                r=mid-1  #mid是坏的,第一个坏的在左边或者就是mid
 11            elif isBadVersion(mid)==False:
 12                l=mid+1   #mid是好的,坏在mid右边
-13            
-14        return l 
+13        return l 
