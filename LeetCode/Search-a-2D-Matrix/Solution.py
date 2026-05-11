@@ -1,18 +1,16 @@
 1class Solution:
 2    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-3        if not matrix or not matrix[0]:
-4            return False
-5        m, n = len(matrix), len(matrix[0])
-6        left, right = 0, m * n - 1
-7        while left <= right:
-8            mid = (left + right) // 2
-9            # 将一维索引映射到二维矩阵
-10            row, col = divmod(mid, n)
-11            val = matrix[row][col]
-12            if val == target:
-13                return True
-14            elif val < target:
-15                left = mid + 1
-16            else:
-17                right = mid - 1
-18        return False
+3        m,n=len(matrix),len(matrix[0]) #3,4
+4        l,r=0, m*n-1 
+5        while l<=r:
+6            mid=l+(r-l)//2
+7            x=mid//n    #5//3=1
+8            y=mid%n  #5%4=1
+9
+10            if matrix[x][y]==target:
+11                return True
+12            elif matrix[x][y]>target:
+13                r=mid-1
+14            else:
+15                l=mid+1
+16        return False
