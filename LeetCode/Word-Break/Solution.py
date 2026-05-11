@@ -2,13 +2,16 @@
 2    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
 3        wordDict=set(wordDict)
 4        n=len(s)
-5        dp=[False] * (n+1)
-6        dp[0]=True
-7        for i in range(1,n+1):
-8            for j in range(i):
-9                if s[j:i] in wordDict  and dp[j]:
-10                    dp[i] = True
-11                    break
-12        return dp[n]
-13
-14
+5        q=deque([0])
+6        visited=set()
+7        while q:
+8            start=q.popleft()
+9            if start in visited:
+10                continue
+11            visited.add(start)
+12            for end in range(start+1, n+1):
+13                if s[start:end] in wordDict:
+14                    if end==n:
+15                        return True
+16                    q.append(end)
+17        return False
