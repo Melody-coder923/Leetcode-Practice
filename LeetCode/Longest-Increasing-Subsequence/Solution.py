@@ -1,18 +1,17 @@
 1class Solution:
-2    def lengthOfLIS(self, nums: List[int]) -> int: 
-3        sublist=[]     
-4        for num in nums:
-5            left,right=0,len(sublist)-1
-6            while left<=right:
-7                mid=left+(right-left)//2
-8                if sublist[mid]<num:
-9                    left=mid+1
-10                else:
-11                    right=mid-1
-12            if left==len(sublist):
-13               sublist.append(num)
-14            else:
-15                sublist[left]=num
-16        
-17        return len(sublist)
-18            
+2    def lengthOfLIS(self, nums: List[int]) -> int:
+3        n=len(nums)
+4        res=[]
+5        for num in nums:
+6            l,r=0,len(res)-1
+7            while l<=r:
+8                mid=(r+l)//2
+9                if res[mid]<num:
+10                    l=mid+1
+11                else:
+12                    r=mid-1
+13            if l==len(res):
+14                res.append(num)
+15            else:
+16                res[l]=num
+17        return len(res)
