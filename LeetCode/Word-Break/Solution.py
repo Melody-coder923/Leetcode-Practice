@@ -1,17 +1,20 @@
-1class Solution:
-2    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-3        wordDict=set(wordDict)
-4        n=len(s)
-5        q=deque([0])
-6        visited=set()
-7        while q:
-8            start=q.popleft()
-9            if start in visited:
-10                continue
-11            visited.add(start)
-12            for end in range(start+1, n+1):
-13                if s[start:end] in wordDict:
-14                    if end==n:
-15                        return True
-16                    q.append(end)
-17        return False
+    # Graph
+    #   * node: s position
+    #   * edge: word
+    #   * if we can reach target node (last letter), return True
+    def wordBreakBFS(self, s: str, wordDict: List[str]) -> bool:
+        queue = deque([0])  # queue represents positions we can cover up to
+        visited = set()
+
+        while queue:
+            cur = queue.popleft()
+            for word in wordDict:
+                new = cur+len(word)
+                if new not in visited and word == s[cur:new]:
+                    if new == len(s):
+                        return True
+                    else:
+                        queue.append(new)
+                        visited.add(new)
+
+        return False
