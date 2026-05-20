@@ -13,4 +13,3 @@
 13                return True
 14            return minValue<node.val<maxValue and helper(node.left,minValue,node.val) and helper(node.right,node.val,maxValue)
 15        return helper(root,minValue,maxValue)
-16
