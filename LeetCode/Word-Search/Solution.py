@@ -1,28 +1,27 @@
 1class Solution:
 2    def exist(self, board: List[List[str]], word: str) -> bool:
 3        directions=[(0,1),(0,-1),(1,0),(-1,0)]
-4        m,n= len(board),len(board[0])
-5        
-6
-7        def dfs(i,j,k):
-8            if i<0 or j<0 or i>=m or j>=n or board[i][j]==1 or board[i][j]!=word[k]:
-9                return False
-10            
-11            if k==len(word)-1:
-12                return True
-13
-14            temp=board[i][j]
-15            board[i][j]=1
-16            for dx,dy in directions:
-17                if dfs(i+dx,j+dy,k+1):
-18                    return True
-19            board[i][j]=temp
-20            return False
-21
-22        k=0
-23        for i in range(m):
-24            for j in range(n):
-25                if board[i][j]==word[k]:
-26                    if dfs(i,j,k):
-27                        return True
-28        return False
+4        def backtrack(i,j,idx):
+5            if i<0 or j<0 or i>=m or j>=n or board[i][j]==1:
+6                return False
+7            if board[i][j]!=word[idx]:
+8                return False
+9            if idx==len(word)-1:
+10                return True
+11            temp=board[i][j]
+12            board[i][j]=1
+13            for dx,dy in directions:
+14                nx,ny=i+dx,j+dy
+15                if backtrack(nx,ny,idx+1):
+16                    return True
+17            board[i][j]=temp
+18            return False
+19
+20        m,n=len(board),len(board[0])
+21        idx=0
+22        for i in range(m):
+23            for j in range(n):
+24                if board[i][j]==word[idx]:
+25                    if backtrack(i,j,idx):
+26                        return True
+27        return False
