@@ -1,28 +1,26 @@
 1class Solution:
 2    def validTree(self, n: int, edges: List[List[int]]) -> bool:
-3        #tree: 1. no loop  2.edges=n-1 3. no independant node
-4        if len(edges) != n-1:
-5            return False
+3        if len(edges)!=n-1:
+4            return False
+5
 6        graph=defaultdict(list)
 7        for u,v in edges:
 8            graph[u].append(v)
 9            graph[v].append(u)
-10        visited=set()
-11        def dfs(node,parent):
-12            if node in visited:
-13                return False
-14            visited.add(node)
-15            for nei in graph[node]:
-16                if nei==parent:
-17                    continue 
-18                if not dfs(nei, node):
-19                    return False
-20            return True
-21        
-22        if not dfs(0,-1):
-23            return False
-24        return len(visited)==n
+10
+11        visited=set()
+12        def dfs(node,parent):
+13            if node in visited:
+14                return False
+15            visited.add(node)
+16            for nei in graph[node]:
+17                if nei==parent:
+18                    continue 
+19                if not dfs(nei, node):
+20                    return False
+21            return True
+22            
+23        if not dfs(0,-1):
+24            return False        
 25
-26        
-27
-28
+26        return len(visited)==n
