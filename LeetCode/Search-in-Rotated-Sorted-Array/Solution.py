@@ -1,29 +1,19 @@
-class Solution:
-   def search(self, nums: List[int], target: int) -> int:
-       n = len(nums)
-       left, right = 0, n - 1
-       
-       # Find the index of the pivot element (the smallest element)
-       while left <= right:
-           mid = (left + right) // 2
-           if nums[mid] > nums[-1]:
-               left = mid + 1
-           else:
-               right = mid - 1
-       
-       # Shift elements in circular manner, with the pivot element at index 0.
-       # Then perform a regular binary search
-       def shiftedBinarySearch(pivot_index, target):
-           left, right = 0, n - 1
-
-           while left <= right:
-               mid = (left + right) // 2
-               if nums[(mid + pivot_index) % n] == target:
-                   return (mid + pivot_index) % n
-               elif nums[(mid + pivot_index) % n] > target:
-                   right = mid - 1
-               else:
-                   left = mid + 1
-           return -1
-           
-       return shiftedBinarySearch(left, target)
+1class Solution:
+2    def search(self, nums: List[int], target: int) -> int:
+3        l,r=0,len(nums)-1
+4        while l<=r:
+5            mid=(l+r)//2
+6            if nums[mid]==target:
+7                return mid
+8            elif nums[mid]<nums[r]:
+9                if nums[mid]<target<=nums[r]:
+10                    l=mid+1
+11                else:
+12                    r=mid-1
+13            else:
+14                if nums[l]<=target<nums[mid]:
+15                    r=mid-1
+16                else:
+17                    l=mid+1
+18            
+19        return -1
