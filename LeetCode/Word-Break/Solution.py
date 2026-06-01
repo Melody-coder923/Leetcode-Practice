@@ -8,6 +8,5 @@
 8            for j in range(i):
 9                if s[j:i] in wordDict and dp[j]:
 10                    dp[i]=True
-11        return dp[n]
-12
-13            
+11                    break
+12        return dp[n]
