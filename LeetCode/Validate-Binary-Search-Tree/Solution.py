@@ -4,7 +4,7 @@
 4#         self.val = val
 5#         self.left = left
 6#         self.right = right
-7class Solution:
+7class Solution: 
 8    def isValidBST(self, root: Optional[TreeNode]) -> bool:
 9        stack = []
 10        prev = float('-inf')
