@@ -1,18 +1,13 @@
 1class Solution:
 2    def rotate(self, matrix: List[List[int]]) -> None:
-3        """
-4        Do not return anything, modify matrix in-place instead.
-5        """
-6        n=len(matrix)
-7        if n==1:
-8            return matrix
+3        n = len(matrix)
+4        
+5        # Step 1: 转置矩阵
+6        for i in range(n):
+7            for j in range(i + 1, n):
+8                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 9
-10        for i in range(n):
-11            for j in range(i, n):
-12                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-13        
-14        for row in matrix:
-15            row.reverse()
-16        
-17        return matrix
-18
+10        # Step 2: 每一行反转
+11        for row in matrix:
+12            row.reverse()
+13
