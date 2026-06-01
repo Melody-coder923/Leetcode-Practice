@@ -1,8 +1,14 @@
-[[1,3],[2,6],[8,10],[15,18]]
-[[1,4],[4,5]]
-[[1,1],[2,2],[0,0],[2,3],[1,3],[3,5],[2,3],[3,5]]
-[[2,3],[2,2],[3,3],[1,3],[5,7],[2,2],[4,6]]
-[[1,3],[2,6],[8,10],[8,9],[9,11],[15,18],[2,4],[16,17]]
-[[1012,1136],[1137,1417],[1015,1020]]
-[[1,3]]
-[[1,4],[2,3]]
+1class Solution:
+2    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+3        intervals.sort()
+4        prev=intervals[0]
+5        res=[]
+6        for start,end in intervals[1:]:
+7            if start>prev[1]:
+8                res.append(prev)
+9                prev=[start,end]
+10            else:
+11                prev[1]=max(prev[1],end)
+12        res.append(prev)
+13        return res
+14
