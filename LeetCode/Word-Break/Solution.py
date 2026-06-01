@@ -6,7 +6,7 @@
 6        wordDict=set(wordDict)
 7        for i in range(n+1):
 8            for j in range(i):
-9                if s[j:i] in wordDict and dp[j]:
+9                if dp[j] and s[j:i] in wordDict:
 10                    dp[i]=True
 11                    break
 12        return dp[n]
