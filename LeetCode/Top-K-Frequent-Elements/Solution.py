@@ -1,16 +1,18 @@
-1class Solution:
-2    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-3        count=Counter(nums)
-4
-5        heap=[]
-6        for num,fre in count.items():
-7            heapq.heappush(heap,(-fre,num))
-8        res=[]
-9        while k>0 and heap:
-10            freq,num= heapq.heappop(heap)
-11            res.append(num)
-12            k-=1
-13        
-14        return res
-15        
-16
+1from collections import Counter
+2class Solution:
+3    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+4        min_heap=[]
+5        count=Counter(nums)
+6        for value,freq in count.items():
+7                if len(min_heap)<k:
+8                    heapq.heappush(min_heap,(freq,value))
+9                elif min_heap[0][0]<freq:
+10                        heapq.heappop(min_heap)
+11                        heapq.heappush(min_heap,(freq,value))
+12        res=[]
+13        while min_heap:
+14            freq,value=heapq.heappop(min_heap)
+15            res.append(value)
+16        return res
+17        
+18       
