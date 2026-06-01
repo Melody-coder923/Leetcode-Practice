@@ -6,30 +6,22 @@
 6import heapq
 7class Solution:
 8    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-9        # Input: many sorted linkedlist
-10        # Output: merge into one contraint: sorted
-11        # min_heap-> newlinkedlist
-12
-13        if len(lists)==0:
-14            return None
-15        if len(lists)==1:
-16            return lists[0]
-17
-18        heap=[]
-19        dummy=ListNode(0)
-20        cur=dummy
-21
-22        for i,node in enumerate(lists):
-23            if node:
-24                heapq.heappush(heap,(node.val,i,node))
-25        
-26        while heap:
-27            val,i,node=heapq.heappop(heap)
-28            cur.next=node
-29            cur=cur.next
-30
-31            if node.next: 
-32                next_node=node.next
-33                heapq.heappush(heap,(next_node.val,i,next_node))
-34
-35        return dummy.next
+9        if not lists:
+10            return None
+11        heap=[]
+12        dummy=ListNode(0)
+13        cur=dummy
+14
+15        for i,node in enumerate(lists):
+16            if node:
+17                heapq.heappush(heap,(node.val,i,node))
+18        
+19        while heap:
+20            val,i,node=heapq.heappop(heap)
+21            cur.next=node
+22            cur=cur.next
+23
+24            if node.next:
+25                heapq.heappush(heap,(node.next.val,i,node.next))
+26        
+27        return dummy.next
