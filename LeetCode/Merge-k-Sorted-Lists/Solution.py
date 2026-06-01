@@ -3,23 +3,20 @@
 3#     def __init__(self, val=0, next=None):
 4#         self.val = val
 5#         self.next = next
-6import heapq
-7class Solution:
-8    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-9        heap=[]
-10        dummy=ListNode(-1)
-11        cur=dummy
-12
-13        for i,node in enumerate(lists):
-14            if node:
-15                heapq.heappush(heap,(node.val,i,node))
-16
-17        while heap:
-18            val,i,node=heapq.heappop(heap)
-19            cur.next=node
-20            cur=cur.next
-21            if node.next:
-22                heapq.heappush(heap, (node.next.val,i,node.next))
-23        
-24        return dummy.next
-25            
+6class Solution:
+7    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+8        heap=[]
+9        for i,node in enumerate(lists):
+10            if node:
+11                heapq.heappush(heap,(node.val,i,node))
+12        dummy=ListNode(-1)
+13        curr=dummy
+14        while heap:
+15            value,i,node=heapq.heappop(heap)
+16            curr.next=node
+17            curr=curr.next
+18            if node.next:
+19                nxt=node.next
+20                heapq.heappush(heap,(nxt.val,i,nxt))
+21        
+22        return dummy.next
