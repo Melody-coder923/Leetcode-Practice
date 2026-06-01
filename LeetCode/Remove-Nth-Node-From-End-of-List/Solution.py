@@ -23,7 +23,3 @@
 23        slow.next=slow.next.next
 24    
 25        return dummy.next
-26
-27
-28
-29
