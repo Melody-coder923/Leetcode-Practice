@@ -1,16 +1,11 @@
 1class Solution:
 2    def maxProduct(self, nums: List[int]) -> int:
-3        n=len(nums)
-4        curMax=nums[0]
-5        curMin=nums[0]
-6        res=nums[0]
-7
-8        for i in range(1, n):
-9            temp= curMax
-10            curMax=max(nums[i],nums[i]*curMax,nums[i]*curMin)
-11            curMin=min(nums[i],nums[i]*temp,nums[i]*curMin)
-12            res=max(res,curMax)
-13        
-14        return res
-15
-16
+3        maxcur=mincur=res=nums[0]
+4
+5        for num in nums[1:]:
+6            temp=maxcur
+7            maxcur=max(num,maxcur*num,mincur*num)
+8            mincur=min(num,temp*num,mincur*num)
+9
+10            res=max(res,maxcur)
+11        return res
