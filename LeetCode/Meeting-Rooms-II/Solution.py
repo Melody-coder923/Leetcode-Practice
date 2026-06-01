@@ -6,10 +6,13 @@
 6            lst.append((end,-1))
 7        
 8        lst.sort()
-9
-10        res=0
-11        maxroom=0
-12        for time,count in lst:
-13            res+=count
-14            maxroom=max(res,maxroom)
-15        return maxroom
+9        res=0
+10        maxmeeting=0
+11        for time,cal in lst:
+12            res+=cal
+13            maxmeeting=max(maxmeeting,res)
+14        return maxmeeting
+15        
+16
+17
+18            
