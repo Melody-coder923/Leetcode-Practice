@@ -5,19 +5,23 @@
 5#         self.left = left
 6#         self.right = right
 7class Solution:
-8    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:   
-9        self.k = k
-10        self.ans = None
-11
-12        def dfs(root):
-13            if not root:
-14                return
-15            dfs(root.left)
-16            self.k -= 1
-17            if self.k == 0:
-18                self.ans = root.val
-19                return
-20            dfs(root.right)
-21
-22        dfs(root)
-23        return self.ans
+8    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+9        if not root:
+10            return 
+11        stack=[]
+12        cur=root
+13        while stack or cur:
+14            while cur:
+15                stack.append(cur)
+16                cur=cur.left
+17            node=stack.pop()
+18            k-=1
+19            if k==0:
+20                return node.val
+21            else:
+22                if node and node.right:
+23                    cur=node.right
+24        return node.val
+25
+26            
+27
