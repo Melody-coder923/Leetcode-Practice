@@ -14,6 +14,7 @@
 14                return False
 15            parent[root_v]=root_u
 16            return True
-17        for u,v in edges:
-18            if not union(u,v):
-19                return [u,v]
+17            
+18        for u,v in edges:
+19            if not union(u,v):
+20                return [u,v]
