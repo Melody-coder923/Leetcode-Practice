@@ -1,29 +1,29 @@
 1class Solution:
 2    def searchRange(self, nums: List[int], target: int) -> List[int]:
-3        def findleft(l,r):
-4            while l<=r:
-5                mid=(l+r)//2
-6                if nums[mid]>=target:
-7                    r=mid-1
-8                else:
+3        if not nums:
+4            return [-1, -1]
+5        def findleft(l,r):
+6            while l<=r:
+7                mid=(l+r)//2
+8                if nums[mid]<target:
 9                    l=mid+1
-10            return l
-11        
-12        def findright(l,r):
-13            while l<=r:
-14                mid=(l+r)//2
-15                if nums[mid]<=target:
-16                    l=mid+1
-17                else:
-18                    r=mid-1
-19            return r
-20
-21        n=len(nums)
-22        if n == 0:
-23            return [-1, -1]
-24
-25        left=findleft(0,n-1)
-26        right = findright(0, n-1)
-27        if left <= right and nums[left] == target:
-28            return [left, right]
-29        return [-1,-1]
+10                else:
+11                    r=mid-1
+12            return l
+13
+14        def findright(l,r):
+15            while l<=r:
+16                mid=(l+r)//2
+17                if nums[mid]<=target:
+18                    l=mid+1
+19                else:
+20                    r=mid-1
+21            return r
+22            
+23        n=len(nums)
+24        Left =findleft(0,n-1)
+25        Right =findright(0,n-1)
+26        if Left <= Right and nums[Left] == target:
+27            return [Left, Right]
+28        else:
+29            return [-1,-1]
