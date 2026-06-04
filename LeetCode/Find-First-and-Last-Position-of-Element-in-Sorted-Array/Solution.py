@@ -1,29 +1,31 @@
-1class Solution:
-2    def searchRange(self, nums: List[int], target: int) -> List[int]:
-3        def findleft(l,r):
-4            while l<=r:
-5                mid=(l+r)//2
-6                if nums[mid]>=target:
-7                    r=mid-1
-8                else:
-9                    l=mid+1
-10            return l
-11        
-12        def findright(l,r):
-13            while l<=r:
-14                mid=(l+r)//2
-15                if nums[mid]<=target:
-16                    l=mid+1
-17                else:
-18                    r=mid-1
-19            return r
+1from typing import List
+2
+3class Solution:
+4    def searchRange(self, nums: List[int], target: int) -> List[int]:
+5        left = self.find_left(nums, target)
+6        right = self.find_right(nums, target)
+7        return [left, right]
+8
+9    def find_left(self, nums: List[int], target: int) -> int:
+10        i, j = 0, len(nums)
+11        while i < j:
+12            mid = i + (j - i) // 2
+13            if nums[mid] >= target:
+14                j = mid
+15            else:
+16                i = mid + 1
+17        if i < len(nums) and nums[i] == target:
+18            return i
+19        return -1
 20
-21        n=len(nums)
-22        if n == 0:
-23            return [-1, -1]
-24
-25        left=findleft(0,n-1)
-26        right = findright(0, n-1)
-27        if left <= right and nums[left] == target:
-28            return [left, right]
-29        return [-1,-1]
+21    def find_right(self, nums: List[int], target: int) -> int:
+22        i, j = 0, len(nums)
+23        while i < j:
+24            mid = i + (j - i) // 2
+25            if nums[mid] > target:
+26                j = mid
+27            else:
+28                i = mid + 1
+29        if i > 0 and nums[i - 1] == target:
+30            return i - 1
+31        return -1
