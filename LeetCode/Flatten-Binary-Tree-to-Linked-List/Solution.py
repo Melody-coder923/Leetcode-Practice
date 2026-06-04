@@ -9,14 +9,17 @@
 9        """
 10        Do not return anything, modify root in-place instead.
 11        """
-12        cur=root
-13        while cur:
-14            if cur.left:
-15                rightmost=cur.left
-16                while rightmost.right:
-17                    rightmost=rightmost.right
-18                rightmost.right=cur.right
-19                cur.right=cur.left
-20                cur.left=None
-21            
-22            cur=cur.right
+12        def dfs(node):
+13            if not node:
+14                return
+15            dfs(node.left)
+16            dfs(node.right)
+17            if node.left:
+18                cur=node.left
+19                while cur.right:
+20                    cur=cur.right
+21                cur.right=node.right
+22                node.right=node.left
+23                node.left=None
+24        dfs(root)
+25
