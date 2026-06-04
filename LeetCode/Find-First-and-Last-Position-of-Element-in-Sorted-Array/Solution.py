@@ -3,29 +3,27 @@
 3        def getLeft():
 4            left, right = 0, len(nums) - 1
 5            while left <= right:
-6                mid = (left + right) // 2  # 保留 mid
-7                # if nums[mid] == target: pass  # 可选练习用注释
-8                if nums[mid] < target:
-9                    left = mid + 1
-10                else:
-11                    right = mid - 1
-12            return left
-13
-14        def getRight():
-15            left, right = 0, len(nums) - 1
-16            while left <= right:
-17                mid = (left + right) // 2  # 保留 mid
-18                # if nums[mid] == target: pass  # 可选练习用注释
-19                if nums[mid] <= target:
-20                    left = mid + 1
-21                else:
-22                    right = mid - 1
-23            return right
-24
-25        left_idx = getLeft()
-26        right_idx = getRight()
-27
-28        if left_idx <= right_idx:
-29            return [left_idx, right_idx]
-30        else:
-31            return [-1, -1]
+6                mid = (left + right) // 2                  
+7                if nums[mid] < target:
+8                    left = mid + 1
+9                else:
+10                    right = mid - 1
+11            return left
+12
+13        def getRight():
+14            left, right = 0, len(nums) - 1
+15            while left <= right:
+16                mid = (left + right) // 2 
+17                if nums[mid] <= target:
+18                    left = mid + 1
+19                else:
+20                    right = mid - 1
+21            return right
+22
+23        left_idx = getLeft()
+24        right_idx = getRight()
+25
+26        if left_idx <= right_idx:
+27            return [left_idx, right_idx]
+28        else:
+29            return [-1, -1]
