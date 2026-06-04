@@ -1,31 +1,31 @@
-1from typing import List
-2
-3class Solution:
-4    def searchRange(self, nums: List[int], target: int) -> List[int]:
-5        left = self.find_left(nums, target)
-6        right = self.find_right(nums, target)
-7        return [left, right]
-8
-9    def find_left(self, nums: List[int], target: int) -> int:
-10        i, j = 0, len(nums)
-11        while i < j:
-12            mid = i + (j - i) // 2
-13            if nums[mid] >= target:
-14                j = mid
-15            else:
-16                i = mid + 1
-17        if i < len(nums) and nums[i] == target:
-18            return i
-19        return -1
-20
-21    def find_right(self, nums: List[int], target: int) -> int:
-22        i, j = 0, len(nums)
-23        while i < j:
-24            mid = i + (j - i) // 2
-25            if nums[mid] > target:
-26                j = mid
-27            else:
-28                i = mid + 1
-29        if i > 0 and nums[i - 1] == target:
-30            return i - 1
-31        return -1
+1class Solution:
+2    def searchRange(self, nums: List[int], target: int) -> List[int]:
+3        def getLeft():
+4            left, right = 0, len(nums) - 1
+5            while left <= right:
+6                mid = (left + right) // 2  # 保留 mid
+7                # if nums[mid] == target: pass  # 可选练习用注释
+8                if nums[mid] < target:
+9                    left = mid + 1
+10                else:
+11                    right = mid - 1
+12            return left
+13
+14        def getRight():
+15            left, right = 0, len(nums) - 1
+16            while left <= right:
+17                mid = (left + right) // 2  # 保留 mid
+18                # if nums[mid] == target: pass  # 可选练习用注释
+19                if nums[mid] <= target:
+20                    left = mid + 1
+21                else:
+22                    right = mid - 1
+23            return right
+24
+25        left_idx = getLeft()
+26        right_idx = getRight()
+27
+28        if left_idx <= right_idx:
+29            return [left_idx, right_idx]
+30        else:
+31            return [-1, -1]
