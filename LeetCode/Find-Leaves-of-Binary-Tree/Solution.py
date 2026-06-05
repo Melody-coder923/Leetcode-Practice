@@ -20,6 +20,5 @@
 20                res.append([])
 21            res[height].append(node.val)
 22            return height
-23
-24        dfs(root)
-25        return res
+23        dfs(root)
+24        return res
