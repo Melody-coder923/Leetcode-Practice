@@ -6,14 +6,16 @@
 6#         self.right = right
 7class Solution:
 8    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-9        def dfs(p,q):
-10            if not p and not q:
-11                return True
-12            if not p or not q or p.val!=q.val:
-13                return False
-14            return p.val==q.val and dfs(p.left,q.left) and dfs(p.right,q.right)
-15        
-16        if not root:
-17            return False
+9        if not root:
+10            return False
+11
+12        def issame(p,q):
+13            if not p and not q:
+14                return True
+15            if not p or not q or p.val!=q.val:
+16                return False
+17            return issame(p.left,q.left) and issame(p.right,q.right)
 18        
-19        return dfs(root,subRoot) or self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
+19        return issame(root,subRoot) or self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
+20
+21        
