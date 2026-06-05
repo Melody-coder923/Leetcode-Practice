@@ -8,12 +8,18 @@
 8    def isBalanced(self, root: Optional[TreeNode]) -> bool:
 9        def dfs(node):
 10            if not node:
-11                return 0, True 
-12            left_height, left_balanced = dfs(node.left)
-13            right_height, right_balanced = dfs(node.right)
-14            current_balanced = (left_balanced and 
-15                              right_balanced and 
-16                              abs(left_height - right_height) <= 1)
-17            current_height = max(left_height, right_height) + 1
-18            return current_height, current_balanced
-19        return dfs(root)[1] 
+11                return (True,0)
+12            leftcondition,leftdepth=dfs(node.left)       
+13            rightcondition,rightdepth=dfs(node.right)
+14            if leftcondition and rightcondition:
+15                if abs(leftdepth - rightdepth) <= 1:
+16                    currentcondition = True
+17                else:
+18                    currentcondition = False
+19            else:
+20                currentcondition = False
+21            currentdepth=max(leftdepth,rightdepth)+1
+22            return (currentcondition, currentdepth)
+23        return dfs(root)[0]
+24           
+25        
