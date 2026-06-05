@@ -8,15 +8,17 @@
 8    def maxDepth(self, root: Optional[TreeNode]) -> int:
 9        if not root:
 10            return 0
-11        maxdepth=0
-12        def dfs(node,depth):
-13            nonlocal maxdepth
-14            if not node:
-15                return 0
-16            maxdepth=max(maxdepth,depth)
-17            dfs(node.left,depth+1)
-18            dfs(node.right,depth+1)
-19        dfs(root,1)
-20        return maxdepth
-21            
-22
+11        queue=collections.deque([root])
+12        count=0
+13        while queue:
+14            level_size=len(queue)
+15            for _ in range(level_size):
+16                node=queue.popleft()
+17                if node.left:
+18                    queue.append(node.left)
+19                if node.right:
+20                    queue.append(node.right)
+21            count+=1
+22        return count
+23        
+24        
