@@ -6,15 +6,22 @@
 6#         self.right = right
 7class Solution:
 8    def isBalanced(self, root: Optional[TreeNode]) -> bool:
-9        balanced=True
-10        def help(node):
-11            nonlocal balanced
-12            if not node:
-13                return 0
-14            left=help(node.left)
-15            right=help(node.right)
-16            if abs(left-right)>1:
-17                balanced=False
-18            return max(left,right)+1
-19        help(root)
-20        return balanced
+9        #no more than 1
+10        # father: need to know if left and right are both balanced and their height
+11        if not root:
+12            return True
+13        def dfs(node):
+14            if not node:
+15                return (True,0)
+16            
+17            l_balanced, left=dfs(node.left)
+18            r_balanced, right=dfs(node.right)
+19            if not l_balanced or not r_balanced:
+20                return (False,max(left,right))
+21            if abs(left-right)>1:
+22                return (False,max(left,right))
+23            
+24            return (True,max(left,right)+1)
+25        balanced,height=dfs(root)
+26        return balanced
+27
