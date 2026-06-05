@@ -8,17 +8,6 @@
 8    def maxDepth(self, root: Optional[TreeNode]) -> int:
 9        if not root:
 10            return 0
-11        queue=collections.deque([root])
-12        count=0
-13        while queue:
-14            level_size=len(queue)
-15            for _ in range(level_size):
-16                node=queue.popleft()
-17                if node.left:
-18                    queue.append(node.left)
-19                if node.right:
-20                    queue.append(node.right)
-21            count+=1
-22        return count
-23        
-24        
+11        left=self.maxDepth(root.left)
+12        right=self.maxDepth(root.right)
+13        return max(left,right)+1
