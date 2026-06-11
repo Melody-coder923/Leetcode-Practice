@@ -4,18 +4,16 @@
 4#         self.val = val
 5#         self.left = left
 6#         self.right = right
-7class Solution: 
+7class Solution:
 8    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-9        stack = []
-10        prev = float('-inf')
-11        cur=root
-12        while stack or cur:
-13            while cur:
-14                stack.append(cur)
-15                cur = cur.left
-16            node = stack.pop()
-17            if node.val <= prev:
-18                return False
-19            prev =node.val
-20            cur = node.right
-21        return True
+9        minValue=float("-inf")
+10        maxValue=float("inf")
+11        def dfs(node,minValue,maxValue):
+12            if not node:
+13                return True
+14            if not (minValue < node.val < maxValue):
+15                return False
+16            left= dfs(node.left,minValue,node.val) 
+17            right= dfs(node.right,node.val,maxValue)
+18            return left and right
+19        return dfs(root,minValue,maxValue)
