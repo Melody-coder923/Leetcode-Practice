@@ -1,0 +1,1 @@
+abs(sum(nums[:i]) - sum(nums[i + 1:]))
