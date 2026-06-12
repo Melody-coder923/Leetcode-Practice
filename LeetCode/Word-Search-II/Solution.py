@@ -17,26 +17,24 @@
 17        m,n=len(board),len(board[0])
 18        directions = [(1,0), (-1,0), (0,1), (0,-1)]
 19        def dfs(i,j,node):
-20            if i<0 or j<0 or i>=m or j>=n:
+20            if i<0 or j<0 or i>=m or j>=n or board[i][j]=="#" or board[i][j] not in node.children:
 21                return
-22            char = board[i][j]
-23            if char == "#" or char not in node.children:
-24                return
-25
-26            node = node.children[char]
-27            if node.word:
-28                res.append(node.word)
-29                node.word = None
-30
-31            board[i][j] = "#"
-32
-33            for dx, dy in directions:
-34                dfs(i + dx, j + dy, node)           
-35            board[i][j] = char
-36        
-37        cur=root
-38        for i in range(m):
-39            for j in range(n):
-40                dfs(i, j, root)
-41        return res
-42        
+22            char=board[i][j]
+23            node = node.children[char]
+24            if node.word:
+25                res.append(node.word)
+26                node.word=None
+27                
+28            board[i][j]="#"
+29            for dx,dy in directions:
+30                ni,nj=i+dx,j+dy
+31                if 0<=ni<m and 0<=nj<n and board[ni][nj] in node.children:
+32                    dfs(ni,nj,node)
+33            board[i][j]=char
+34
+35        cur=root
+36        for i in range(m):
+37            for j in range(n):
+38                dfs(i, j, root)
+39        return res
+40        
