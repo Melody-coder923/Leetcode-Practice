@@ -11,13 +11,13 @@
 11        def dfs(node,maxval):
 12            if not node:
 13                return 0
-14            if maxval<=node.val:
-15                good=1
-16            else:
-17                good=0
-18            maxval=max(maxval,node.val)
-19            left=dfs(node.left,maxval)
-20            right=dfs(node.right,maxval)
-21
-22            return left+right+good
-23        return dfs(root,root.val)
+14            good=0
+15            if node.val>=maxval:
+16                good=1
+17            maxval=max(maxval,node.val)
+18            left=dfs(node.left,maxval)
+19            right=dfs(node.right,maxval)
+20
+21            return left+right+good
+22        return dfs(root,root.val)
+23
