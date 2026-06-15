@@ -1,36 +1,34 @@
-1class TrieNode:
+1class TriesNode:
 2    def __init__(self):
 3        self.children={}
 4        self.end=False
-5
-6class WordDictionary:
-7    def __init__(self):
-8        self.root=TrieNode()
-9
-10    def addWord(self, word: str) -> None:
-11        cur=self.root
-12        for c in word:
-13            if c not in cur.children:
-14                cur.children[c]=TrieNode()
-15            cur=cur.children[c]
-16        cur.end=True
-17
-18    def search(self, word: str) -> bool:
-19        def dfs(i,node):
-20            if i==len(word):
-21                return node.end
-22            c=word[i]
-23            if c != ".":
-24                if c not in node.children:
-25                    return False
-26                return dfs(i + 1, node.children[c]) 
-27            for child in node.children.values():
-28                if dfs(i + 1, child):
-29                    return True
-30            return False
-31        return dfs(0,self.root)
-32
-33# Your WordDictionary object will be instantiated and called as such:
-34# obj = WordDictionary()
-35# obj.addWord(word)
-36# param_2 = obj.search(word)
+5class WordDictionary:
+6    def __init__(self):
+7        self.root=TriesNode()
+8    def addWord(self, word: str) -> None:
+9        cur=self.root
+10        for c in word:
+11            if c not in cur.children:
+12                cur.children[c]=TriesNode()
+13            cur=cur.children[c]
+14        cur.end=True
+15
+16    def search(self, word: str) -> bool:
+17        def dfs(i,node):
+18            if i==len(word):
+19                return node.end
+20            c=word[i]
+21            if c!=".":
+22                if c not in node.children:
+23                    return False
+24                return dfs(i + 1, node.children[c])
+25            else:
+26                for child in node.children.values():
+27                    if dfs(i+1,child):
+28                        return True
+29                return False
+30        return dfs(0,self.root)
+31# Your WordDictionary object will be instantiated and called as such:
+32# obj = WordDictionary()
+33# obj.addWord(word)
+34# param_2 = obj.search(word)
