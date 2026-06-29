@@ -2,36 +2,39 @@
 2    def __init__(self):
 3        self.children={}
 4        self.end=False
-5class Trie:
-6    def __init__(self):
-7        self.root=TrieNode()
-8    def insert(self, word: str) -> None:
-9        cur=self.root
-10        for c in word:
-11            if c not in cur.children:
-12                cur.children[c]=TrieNode()
-13            cur=cur.children[c]
-14        cur.end=True
-15
-16    def search(self, word: str) -> bool:
-17        cur=self.root
-18        for c in word:
-19            if c not in cur.children:
-20                return False
-21            cur=cur.children[c]
-22        return cur.end
-23
-24    def startsWith(self, prefix: str) -> bool:
-25        cur=self.root
-26        for c in prefix:
-27            if c not in cur.children:
-28                return False
-29            cur=cur.children[c]
-30        return True
-31
-32
-33# Your Trie object will be instantiated and called as such:
-34# obj = Trie()
-35# obj.insert(word)
-36# param_2 = obj.search(word)
-37# param_3 = obj.startsWith(prefix)
+5
+6class Trie:
+7    def __init__(self):
+8        self.root=TrieNode()
+9
+10    def insert(self, word: str) -> None:
+11        cur=self.root
+12        for c in word:
+13            if c not in cur.children:
+14                cur.children[c]=TrieNode()
+15            cur=cur.children[c]
+16        cur.end=True
+17
+18    def search(self, word: str) -> bool:
+19        cur=self.root
+20        for c in word:
+21            if c not in cur.children:
+22                return False
+23            cur=cur.children[c]
+24        return cur.end
+25
+26    def startsWith(self, prefix: str) -> bool:
+27        cur=self.root
+28        for c in prefix:
+29            if c not in cur.children:
+30                return False
+31            cur=cur.children[c]
+32        return True
+33        
+34
+35
+36# Your Trie object will be instantiated and called as such:
+37# obj = Trie()
+38# obj.insert(word)
+39# param_2 = obj.search(word)
+40# param_3 = obj.startsWith(prefix)
