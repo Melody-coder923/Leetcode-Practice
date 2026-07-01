@@ -21,19 +21,18 @@
 21                findparent(node.right)
 22        findparent(root)
 23
-24        # bfs
-25        q=deque([(target,0)])
+24        q=deque([(target,0)])
+25        res=[]
 26        visited={target}
-27        res=[]
-28        while q:
-29            size=len(q)
-30            for _ in range(size):
-31                node,dis=q.popleft()
-32                if dis==k:
-33                    res.append(node.val)
-34                    continue
-35                for nxt in (node.left,node.right,n_to_parent.get(node)):
-36                    if nxt and nxt not in visited:
-37                        q.append((nxt,dis+1))
-38                        visited.add(nxt)
-39        return res
+27        while q:
+28            size=len(q)
+29            for _ in range(size):
+30                node,dis=q.popleft()
+31                if dis==k:
+32                    res.append(node.val)
+33                    continue
+34                for nxt in (node.left, node.right,n_to_parent.get(node)):
+35                    if nxt and nxt not in visited:
+36                        q.append((nxt,dis+1))
+37                        visited.add(nxt)
+38        return res
