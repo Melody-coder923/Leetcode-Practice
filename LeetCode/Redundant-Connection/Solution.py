@@ -1,27 +1,20 @@
 1class Solution:
 2    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-3        # tree: n nodes and n-1=edges
-4        # no indepent node
-5        # connect but without cycle 
-6
-7        n=len(edges)
-8        parents = list(range(n + 1))
+3        parent=[i for i in range(len(edges)+1)]
+4
+5        def find(x):
+6            if parent[x] != x:
+7                parent[x]=find(parent[x])
+8            return parent[x]
 9
-10        def find(x):
-11            if parents[x] != x:
-12                parents[x] = find(parents[x])  
-13            return parents[x]
-14        
-15        def union(x,y):
-16            root_x= find(x)
-17            root_y= find(y)
-18            if root_x==root_y:
-19                return False
-20            parents[root_y]=root_x
-21            return True
-22        
-23        res=[]
-24        for u,v in edges:
-25            if not union(u,v):
-26                return [u,v]
-27    
+10        def union(u,v):
+11            root_u=find(u)
+12            root_v=find(v)
+13            if root_u==root_v:
+14                return False
+15            parent[root_v]=root_u
+16            return True
+17            
+18        for u,v in edges:
+19            if not union(u,v):
+20                return [u,v]
