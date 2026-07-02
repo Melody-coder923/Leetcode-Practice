@@ -11,14 +11,16 @@
 11    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
 12        if not node:
 13            return None
-14        visited={}
-15        def helper(node):
-16            if node in visited:
-17                return visited[node]
-18            newnode=Node(node.val)
-19            visited[node]=newnode
-20            for nei in node.neighbors:
-21                newnode.neighbors.append(helper(nei))
-22            return newnode
-23        return helper(node)
-24                    
+14        graph=defaultdict(Node)
+15      
+16        def dfs(node):
+17            if node in graph:
+18                return graph[node]
+19            newNode=Node(node.val)
+20            graph[node]=newNode
+21            for nei in node.neighbors:
+22                newNode.neighbors.append(dfs(nei))
+23            return newNode
+24        
+25        return dfs(node)
+26        
