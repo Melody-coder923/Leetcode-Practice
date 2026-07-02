@@ -2,25 +2,30 @@
 2    def validTree(self, n: int, edges: List[List[int]]) -> bool:
 3        if len(edges)!=n-1:
 4            return False
-5
-6        graph=defaultdict(list)
-7        for u,v in edges:
-8            graph[u].append(v)
-9            graph[v].append(u)
-10
-11        visited=set()
-12        def dfs(node,parent):
-13            if node in visited:
-14                return False
-15            visited.add(node)
-16            for nei in graph[node]:
-17                if nei==parent:
-18                    continue 
-19                if not dfs(nei, node):
-20                    return False
-21            return True
-22            
-23        if not dfs(0,-1):
-24            return False        
-25
-26        return len(visited)==n
+5        parent=[i for i in range(n)]
+6        rank=[0]*n
+7        def find(x):
+8            if parent[x]!=x:
+9                parent[x]=find(parent[x])
+10            return parent[x]
+11        
+12        def union(x,y):
+13            root_x= find(x)
+14            root_y= find(y)
+15
+16            if root_x==root_y:
+17                return False
+18            if rank[x]>rank[y]:
+19                parent[root_y] = root_x
+20            elif rank[x]<rank[y]:
+21                parent[root_x] = root_y
+22            else:
+23                parent[root_y] = root_x
+24                rank[root_x]+=1
+25            return True
+26        
+27        for a, b in edges:
+28            if not union(a,b):
+29                return False
+30        return True    
+31        
