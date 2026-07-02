@@ -3,28 +3,27 @@
 3        """
 4        Do not return anything, modify rooms in-place instead.
 5        """
-6        m,n=len(rooms),len(rooms[0])
-7        q=deque([])
-8        INF=2147483647
-9        #from treasure to nei
-10        for i in range(m):
-11            for j in range(n):
-12                if rooms[i][j]==0: #tresure
-13                    q.append(((i,j),0)) # 路径长
-14    
+6        if not rooms or not rooms[0]:
+7            return
+8
+9        m, n = len(rooms), len(rooms[0])
+10        INF = 2147483647
+11        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+12
+13        q = deque()
+14
 15        
-16        directions=[(0,1),(0,-1),(1,0),(-1,0)]
-17        while q:
-18            for _ in range(len(q)):
-19                pos,path=q.popleft()
-20                x,y=pos
-21                for dx,dy in directions:
-22                    nx,ny=x+dx,y+dy
-23                    if 0<=nx<m and 0<=ny<n and rooms[nx][ny]==INF:
-24                        rooms[nx][ny]=path+1
-25                        q.append(((nx, ny), path + 1))
-26    
-27                        
-28
-29
-30       
+16        for i in range(m):
+17            for j in range(n):
+18                if rooms[i][j] == 0:
+19                    q.append((i, j, 0))
+20
+21        while q:
+22            x, y, level = q.popleft()
+23
+24            for dx, dy in directions:
+25                nx, ny = x + dx, y + dy
+26
+27                if 0 <= nx < m and 0 <= ny < n and rooms[nx][ny] == INF:
+28                    rooms[nx][ny] = level + 1
+29                    q.append((nx, ny, level + 1))
