@@ -6,16 +6,27 @@
 6            dp[i][0]=i
 7        for j in range(n+1):
 8            dp[0][j]=j
-9
+9        
 10        for i in range(1,m+1):
 11            for j in range(1,n+1):
 12                if word1[i-1]==word2[j-1]:
 13                    dp[i][j]=dp[i-1][j-1]
 14                else:
 15                    dp[i][j]=min(
-16                        dp[i][j-1], #插入
-17                        dp[i-1][j-1], # 替换
-18                        dp[i-1][j] # 删除
-19                    )+1
-20        return dp[m][n]
-21
+16                    #insert
+17                    dp[i][j-1],
+18                    #delete
+19                    dp[i-1][j-1],
+20                    #replace
+21                    dp[i-1][j]
+22                    )+1
+23        return dp[m][n]
+24"""
+25       0 r o s
+26    0  0 1 2 3
+27    h. 1 1 2 3
+28    o. 2 2 1 2
+29    r. 3 2 2 2
+30    s  4 
+31    e. 5
+32"""
