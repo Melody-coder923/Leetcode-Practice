@@ -8,17 +8,14 @@
 8    def maxPathSum(self, root: Optional[TreeNode]) -> int:
 9        if not root:
 10            return 0
-11        maxpath=float("-inf")
+11        res = float("-inf")
 12        def dfs(node):
-13            nonlocal maxpath
+13            nonlocal res
 14            if not node:
 15                return 0
-16            left=max(0,dfs(node.left))
-17            right=max(0,dfs(node.right))
-18            maxpath=max(maxpath,left+right+node.val)
+16            left=max(dfs(node.left),0)
+17            right=max(dfs(node.right),0)
+18            res=max(left+right+node.val,res)
 19            return max(left,right)+node.val
-20        
-21        dfs(root)
-22        return maxpath
-23
-24
+20        dfs(root)
+21        return res
