@@ -3,13 +3,20 @@
 3        n=len(s)
 4        if s[0]=="0":
 5            return 0
-6
-7        dp=[0]*(n+1)
-8        dp[0]=1
-9        for i in range(1,n+1): #i-1是当下坐标
-10            if s[i-1]!="0":
-11                dp[i]+=dp[i-1]
-12            if i-2>=0 and 10<=int(s[i-2:i])<=26:
-13                dp[i]+=dp[i-2]
-14        
-15        return dp[n]
+6        @lru_cache(None)
+7        def dfs(i):
+8            if i<0:
+9                return 1
+10            res=0
+11            if s[i]!="0":
+12                res+=dfs(i-1)
+13
+14            if i-1>=0 and 10<=int(s[i-1:i+1])<=26:
+15                res+=dfs(i-2)
+16
+17            return res
+18        
+19        return dfs(n-1)
+20            
+21
+22
