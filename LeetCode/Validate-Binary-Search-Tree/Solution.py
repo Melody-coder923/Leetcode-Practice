@@ -8,16 +8,12 @@
 8    def isValidBST(self, root: Optional[TreeNode]) -> bool:
 9        if not root:
 10            return True
-11        maxval=float("inf")
-12        minval=float("-inf")
-13        def dfs(node,maxval,minval):
+11        maxVal=float("inf")
+12        minVal=float("-inf")
+13        def dfs(node,maxVal,minVal):
 14            if not node:
 15                return True
-16            if not(minval<node.val<maxval):
+16            if not (minVal < node.val < maxVal):
 17                return False
-18            left=dfs(node.left,node.val,minval)
-19            right=dfs(node.right,maxval,node.val)
-20            if left and right:
-21                return True
-22            return False
-23        return dfs(root,maxval,minval)
+18            return dfs(node.left,node.val,minVal) and dfs(node.right,maxVal,node.val)
+19        return dfs(root,maxVal,minVal)
