@@ -15,44 +15,47 @@
 15        """
 16        if not root:
 17            return "null"
-18        res=[]
-19        def dfs(node):
-20            if not node:
-21                res.append("null")
-22                return
-23            res.append(str(node.val))
-24            dfs(node.left)
-25            dfs(node.right)
-26        dfs(root)
-27        return ",".join(res)
-28            
-29    def deserialize(self, data):
-30        """Decodes your encoded data to tree.
-31        
-32        :type data: str
-33        :rtype: TreeNode
-34        """
-35        if not data:
-36            return None
-37        vals = data.split(",")
-38        i=0
-39        def dfs():
-40            nonlocal i
-41            if i==len(vals):
-42                return 
-43            if vals[i] == "null":
-44                i += 1
-45                return None           
-46            root = TreeNode(int(vals[i]))
-47            i += 1
-48            root.left=dfs()
-49            root.right=dfs()
-50            
-51            return root
-52        return dfs()
-53            
+18
+19        res = []
+20
+21        def dfs(node):
+22            if not node:
+23                res.append("null")
+24                return
+25
+26            res.append(str(node.val))
+27            dfs(node.left)
+28            dfs(node.right)
+29
+30        dfs(root)
+31        return ",".join(res)
+32
+33    def deserialize(self, data):
+34        """Decodes your encoded data to tree.
+35        
+36        :type data: str
+37        :rtype: TreeNode
+38        """
+39        vals = data.split(",")
+40        self.i = 0
+41
+42        def dfs():
+43            if vals[self.i] == "null":
+44                self.i += 1
+45                return None
+46
+47            node = TreeNode(int(vals[self.i]))
+48            self.i += 1
+49
+50            node.left = dfs()
+51            node.right = dfs()
+52
+53            return node
 54
-55# Your Codec object will be instantiated and called as such:
-56# ser = Codec()
-57# deser = Codec()
-58# ans = deser.deserialize(ser.serialize(root))
+55        return dfs()
+56            
+57
+58# Your Codec object will be instantiated and called as such:
+59# ser = Codec()
+60# deser = Codec()
+61# ans = deser.deserialize(ser.serialize(root))
