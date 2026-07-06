@@ -10,9 +10,9 @@
 10class Solution:
 11    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
 12        if not node:
-13            return None
-14        graph=defaultdict(Node)
-15      
+13            return node
+14
+15        graph = {}
 16        def dfs(node):
 17            if node in graph:
 18                return graph[node]
@@ -23,4 +23,9 @@
 23            return newNode
 24        
 25        return dfs(node)
-26        
+26
+27
+28        
+29
+30
+31
