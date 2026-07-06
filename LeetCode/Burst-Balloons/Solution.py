@@ -1,13 +1,19 @@
 1class Solution:
 2    def maxCoins(self, nums: List[int]) -> int:
-3        nums=[1]+nums+[1]
-4        n=len(nums)
-5        dp= [[0]*n for _ in range(n)]
-6
-7        for length in range(2,n):
-8            for left in range(0,n-length):
-9                right=left+length
-10                for k in range(left+1,right):
-11                    coin=dp[left][k] + nums[left] * nums[k] * nums[right] + dp[k][right]
-12                    dp[left][right]=max(coin,dp[left][right])
-13        return dp[0][n-1]
+3        nums = [1] + nums + [1]
+4        n = len(nums)
+5
+6        @lru_cache(None)
+7        def dfs(left,right):
+8            if right-left==1:
+9                return 0
+10            res = 0
+11            for k in range(left+1,right):
+12                coins= dfs(left,k)+nums[left]*nums[k]*nums[right]+dfs(k,right)
+13                res=max(res,coins)
+14            return res
+15
+16        return dfs(0,n-1)
+17
+18
+19
