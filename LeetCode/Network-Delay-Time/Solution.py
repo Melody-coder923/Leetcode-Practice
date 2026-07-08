@@ -1,23 +1,22 @@
 1class Solution:
 2    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-3        from collections import deque,defaultdict
-4        graph=defaultdict(list)
-5        for u,v,w in times:
-6            graph[u].append((w,v))
+3        graph=defaultdict(list)
+4        for u,v,w in times:
+5            graph[u].append((w,v))
+6           
 7        heap=[(0,k)]
-8        dist={}
+8        map={}
 9        while heap:
-10            d,u=heapq.heappop(heap)
-11            if u in dist:
+10            dis,node=heapq.heappop(heap)
+11            if node in map:
 12                continue
-13            dist[u]=d
+13            map[node]=dis
 14        
-15            for w,v in graph[u]:
-16                if v not in dist:
-17                    heapq.heappush(heap,(d+w,v))
+15            for w,v in graph[node]:
+16                if v not in map:
+17                    heapq.heappush(heap,(dis+w,v))
 18
-19        if len(dist)<n:
+19        if len(map)<n:
 20            return -1
 21        else:
-22            return max(dist.values())
-23             
+22            return max(map.values())
