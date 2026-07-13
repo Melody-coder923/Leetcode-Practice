@@ -10,22 +10,17 @@
 10class Solution:
 11    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
 12        if not node:
-13            return node
-14
-15        graph = {}
-16        def dfs(node):
-17            if node in graph:
-18                return graph[node]
-19            newNode=Node(node.val)
-20            graph[node]=newNode
-21            for nei in node.neighbors:
-22                newNode.neighbors.append(dfs(nei))
+13            return None
+14        graph={}
+15        def build(node):
+16            if node in graph:
+17                return graph[node]
+18            newNode=Node(node.val)
+19            graph[node]=newNode
+20            for nei in node.neighbors:
+21                newNode.neighbors.append(build(nei))
+22
 23            return newNode
-24        
-25        return dfs(node)
+24
+25        return build(node)
 26
-27
-28        
-29
-30
-31
