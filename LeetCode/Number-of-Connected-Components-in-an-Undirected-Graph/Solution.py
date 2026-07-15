@@ -1,26 +1,33 @@
-1from typing import List
-2
-3class Solution:
-4    def countComponents(self, n: int, edges: List[List[int]]) -> int:
-5        parent = [i for i in range(n)]
-6
-7        def find(x):
-8            while parent[x] != x:
-9                parent[x] = parent[parent[x]]  # 路径压缩
-10                x = parent[x]
-11            return x
-12
-13        def union(a, b):
-14            rootA = find(a)
-15            rootB = find(b)
-16            if rootA == rootB:
-17                return False  # 已经连接，没减少连通分量
-18            parent[rootB] = rootA
-19            return True
-20
-21        count = n
-22        for a, b in edges:
-23            if union(a, b):
-24                count -= 1  # 合并成功，连通分量减一
-25
-26        return count
+class DSU:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [0 for _ in range(n)]
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        xset = self.find(x)
+        yset = self.find(y)
+        if xset == yset:
+            return
+        if self.rank[xset] > self.rank[yset]:
+            self.parent[yset] = self.parent[xset]
+        elif self.rank[xset] < self.rank[yset]:
+            self.parent[xset] = self.parent[yset]
+        else:
+            self.parent[xset] = self.parent[yset]
+            self.rank[yset] += 1
+            
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        ds = DSU(n)
+        for edge in edges:
+            ds.union(edge[0], edge[1])
+        
+        parent = set()
+        for i in range(n):
+            parent.add(ds.find(i))
+        return len(parent)
