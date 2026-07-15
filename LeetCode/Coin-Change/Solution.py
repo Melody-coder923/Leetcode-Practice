@@ -1,16 +1,19 @@
-[1,2,5]
-100
-[186,419,83,408]
-6249
-[3,7,405,436]
-8839
-[176,6,366,357,484,226,1,104,160,331]
-5557
-[19,28,176,112,30,260,491,128,70,137,253]
-8539
-[370,417,408,156,143,434,168,83,177,280,117]
-9953
-[2,4,6,8,10,12,14,16,18,20,22,24]
-9999
-[2,4,6]
-9999
+1class Solution:
+2    def coinChange(self, coins: List[int], amount: int) -> int:
+3        n=len(coins)
+4        dp= [[float("inf")]* (amount+1) for _ in range(n+1)]
+5        
+6        for i in range(n+1):
+7            dp[i][0]= 0
+8        
+9        for i in range(1, n+1):
+10            for j in range(1,amount+1):
+11                #不取：
+12                dp[i][j]=dp[i-1][j]
+13                #取
+14                if j-coins[i-1]>=0 and dp[i][j-coins[i-1]]!=float("inf"):
+15                    dp[i][j]=min(dp[i][j-coins[i-1]]+1, dp[i][j])
+16        
+17        return -1 if dp[n][amount] == float("inf") else dp[n][amount]
+18
+19
