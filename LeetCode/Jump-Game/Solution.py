@@ -1,10 +1,13 @@
 1class Solution:
 2    def canJump(self, nums: List[int]) -> bool:
-3        farest=0
-4        for i,num in enumerate(nums):
-5            if i>farest:
-6                return False
-7            if farest>=len(nums)-1:
-8                return True
-9            farest=max(farest,nums[i]+i)
-10        return True
+3        n=len(nums)
+4        if n<1:
+5            return False
+6        farest=0
+7        for idx,num in enumerate(nums):
+8            if idx > farest:
+9                return False
+10            farest=max(farest,idx+num)
+11            if farest>=n-1:
+12                return True
+13        return False
