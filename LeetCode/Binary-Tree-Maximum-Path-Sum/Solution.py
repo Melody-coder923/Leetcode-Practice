@@ -13,9 +13,12 @@
 13            nonlocal res
 14            if not node:
 15                return 0
-16            left=max(dfs(node.left),0)
-17            right=max(dfs(node.right),0)
-18            res=max(left+right+node.val,res)
-19            return max(left,right)+node.val
-20        dfs(root)
-21        return res
+16            left=max(0,dfs(node.left))
+17            right=max(0,dfs(node.right))
+18
+19            res= max(res,left+right+node.val)
+20
+21            return max(left,right)+node.val
+22        
+23        dfs(root)
+24        return res
