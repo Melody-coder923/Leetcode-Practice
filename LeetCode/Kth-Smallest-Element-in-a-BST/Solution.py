@@ -6,19 +6,14 @@
 6#         self.right = right
 7class Solution:
 8    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-9        if not root:
-10            return None
-11        cur=root
-12        stack=[]
-13        while cur or stack:
-14            while cur:
-15                stack.append(cur)
-16                cur=cur.left
-17            
-18            node=stack.pop()
-19            k-=1
-20            if k==0:
-21                return node.val
-22            if node.right:
-23                cur=node.right
-24        
+9        cur=root
+10        stack=[]
+11        while cur or stack:
+12            while cur:
+13                stack.append(cur)
+14                cur=cur.left
+15            cur=stack.pop()
+16            k-=1
+17            if k==0:
+18                return cur.val 
+19            cur=cur.right
