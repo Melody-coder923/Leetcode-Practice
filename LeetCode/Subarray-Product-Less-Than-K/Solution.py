@@ -4,7 +4,7 @@
 4        prod=1
 5        res=0
 6        while right<len(nums):  # right: 
-7            prod*=nums[right]  #
+7            prod*=nums[right]  
 8            right+=1
 9            while left<right and prod>=k:  #k=100  滑动窗口
 10                prod//=nums[left] 
