@@ -2,12 +2,14 @@
 2    def isPalindrome(self, x: int) -> bool:
 3        if x < 0 or (x % 10 == 0 and x != 0):
 4            return False
-5        list_of_digits = [ digit for digit in str(x)]
-6        left=0
-7        right=len(list_of_digits)-1
-8        while left<right:
-9            if list_of_digits[left]!=list_of_digits[right]:
-10                return False
-11            left+=1
-12            right-=1
-13        return True
+5
+6        reverted = 0
+7
+8        # x=12 3 21
+9        # 反转数字后半部分
+10        while x > reverted: #x=12
+11            reverted = reverted * 10 + x % 10  # reverted=123
+12            x //= 10
+13
+14        # 判断前半部分和反转后的后半部分是否相等（考虑奇数长度情况） 
+15        return x == reverted or x == reverted // 10 
