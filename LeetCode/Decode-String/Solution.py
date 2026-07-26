@@ -1,8 +1,8 @@
 1class Solution:
 2    def decodeString(self, s: str) -> str:
 3        stack=[]
-4        cur=""
-5        num=0
+4        num=0
+5        cur=""
 6        for c in s:
 7            if c.isdigit():
 8                num=num*10+int(c)
@@ -12,9 +12,8 @@
 12                num=0
 13            elif c=="]":
 14                prev,repeat=stack.pop()
-15                cur = prev + repeat * cur
+15                cur=prev+ repeat*cur
 16            else:
-17                cur=cur+c
-18        
+17                cur+=c
+18
 19        return cur
-20
