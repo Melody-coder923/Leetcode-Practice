@@ -1,23 +1,19 @@
 1class Solution:
 2    def smallestSubsequence(self, s: str) -> str:
-3        # map 字母对应的位置（取最后出现的位置）
-4        map={}
-5        
-6        for idx,char in enumerate(s):
-7            map[char]=idx
-8        
-9        # stack + seen={}
-10        stack=[]
-11        seen=set()
-12        for idx,char in enumerate(s):
-13            if char in seen:
-14                continue
-15            
-16            while stack and stack[-1]>char and map[stack[-1]]>idx:
-17                removed=stack.pop()
-18                seen.remove(removed)
-19            
-20            stack.append(char)
-21            seen.add(char)
-22        
-23        return "".join(stack)
+3
+4        def can_cover(remain,need):
+5            remain_chars=set(remain)
+6            return need.issubset(remain_chars)
+7        
+8        def dfs(remain,still_need):
+9            if not still_need:
+10                return ""
+11    
+12            for char in sorted(still_need):
+13                idx=remain.find(char)
+14                next_need = still_need - {char}
+15                if can_cover(remain[idx+1:],next_need):
+16                   return char+dfs(remain[idx+1:],next_need)
+17        
+18        return dfs(s,set(s))
+19
