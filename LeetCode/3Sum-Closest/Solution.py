@@ -1,20 +1,22 @@
-1class Solution:
-2    def threeSumClosest(self, nums: List[int], target: int) -> int:
-3        nums.sort()
-4        n=len(nums)
-5        closest=float("inf")
-6        for i in range(n):
-7            l,r=i+1,n-1
-8            while l<r:
-9                total=nums[i]+nums[l]+nums[r]
-10                if abs(total-target)<abs(target-closest):
-11                    closest=total
-12                
-13                if total>target:
-14                    r-=1
-15                elif total<target:
-16                    l+=1
-17                else:
-18                    return total
-19            
-20        return closest
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int ans = nums[0] + nums[1] + nums[2]; // arbitrary ans
+        
+        for (int i = 0; i < nums.length; i++) {
+            int j = i + 1, k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                // if |sum - target| < |ans - target|, update ans
+                if (Math.abs(sum - target) < Math.abs(ans - target)) {
+                    ans = sum;
+                }
+                
+                if (sum > target) k--;      // if sum > target, try smaller sum to approach target 
+                else if (sum < target) j++; // if sum < target, try bigger sum to approach target 
+                else return target;         // if sum == target, return target
+            }
+        }
+        return ans;
+    }
+}
