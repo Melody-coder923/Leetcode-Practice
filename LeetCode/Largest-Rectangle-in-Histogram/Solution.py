@@ -8,7 +8,7 @@
 8            while stack and heights[stack[-1]]>num:
 9                top_idx=stack.pop()
 10                h=heights[top_idx]
-11                # i-1-(stack[-1]+1)+1=i-stack[-1]-1
+11                # r-l+1= （i-1）-(stack[-1]+1) +1 =i-stack[-1]-1
 12                width=i if not stack else i-stack[-1]-1
 13                area=h*width
 14                maxarea=max(area,maxarea)
