@@ -1,19 +1,32 @@
 1class Solution:
 2    def smallestSubsequence(self, s: str) -> str:
-3
-4        def can_cover(remain,need):
-5            remain_chars=set(remain)
-6            return need.issubset(remain_chars)
-7        
-8        def dfs(remain,still_need):
-9            if not still_need:
-10                return ""
-11    
-12            for char in sorted(still_need):
-13                idx=remain.find(char)
-14                next_need = still_need - {char}
-15                if can_cover(remain[idx+1:],next_need):
-16                   return char+dfs(remain[idx+1:],next_need)
-17        
-18        return dfs(s,set(s))
-19
+3        map={}
+4        for idx,char in enumerate(s):
+5            map[char]=idx
+6        
+7        seen=set()
+8        stack=[]
+9        for idx,char in enumerate(s):
+10            if char in seen:
+11                continue
+12
+13            # 如果字母出现更小，需要比较
+14            # 栈顶更大，并且栈顶字符后面还能找到
+15            while (
+16                stack
+17                and stack[-1] > char
+18                and map[stack[-1]] > idx
+19            ):
+20                removed = stack.pop()
+21                seen.remove(removed)
+22
+23            #如果没有更小呢
+24            stack.append(char)
+25            seen.add(char)
+26
+27        return "".join(stack)
+28
+29            
+30
+31            
+32
