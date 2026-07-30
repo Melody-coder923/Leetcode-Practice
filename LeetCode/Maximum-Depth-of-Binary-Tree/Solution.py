@@ -1,20 +1,24 @@
-class Solution {
-    public int maxDepth(TreeNode root) {
-        if (root == null) return 0;
-	Deque<TreeNode> dq = new ArrayDeque<>();
-        int depth = 0, next = 0;
-        TreeNode cur;
-        dq.offer(root);
-        
-        while (!dq.isEmpty()) {
-            depth++;
-            next = dq.size();
-            for (int i = 0; i < next; ++i) {
-                cur = dq.poll();
-                if (cur.left != null) dq.offer(cur.left);
-                if (cur.right != null) dq.offer(cur.right);
-            }
-        }
-        return depth;
-    }
-}
+1# Definition for a binary tree node.
+2# class TreeNode:
+3#     def __init__(self, val=0, left=None, right=None):
+4#         self.val = val
+5#         self.left = left
+6#         self.right = right
+7class Solution:
+8    def maxDepth(self, root: Optional[TreeNode]) -> int:
+9        if not root:
+10            return 0
+11        q=deque()
+12        q.append(root)
+13        level=0
+14        while q:
+15            size=len(q)
+16            for _ in range(size):
+17                node=q.popleft()
+18                if node.left:
+19                    q.append(node.left)
+20                if node.right:
+21                    q.append(node.right)
+22            level+=1
+23        return level
+24        
