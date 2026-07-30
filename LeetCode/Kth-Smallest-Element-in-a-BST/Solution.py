@@ -8,20 +8,14 @@
 8    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
 9        if not root:
 10            return 
-11        stack=[]
-12        cur=root
-13        while stack or cur:
-14            while cur:
-15                stack.append(cur)
-16                cur=cur.left
-17            node=stack.pop()
-18            k-=1
-19            if k==0:
-20                return node.val
+11        lst=[]
+12        def dfs(node):
+13            if not node:
+14                return
+15            dfs(node.left)
+16            lst.append(node.val)
+17            dfs(node.right)
+18            return lst
+19        dfs(root)
+20        return lst[k-1]
 21            
-22            if node and node.right:
-23                cur=node.right
-24        return node.val
-25
-26            
-27
