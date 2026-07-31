@@ -7,10 +7,15 @@
 7class Solution:
 8    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
 9        if not root:
-10            return
-11    
-12        self.invertTree(root.left)
-13        self.invertTree(root.right)
-14        root.left,root.right=root.right,root.left
-15
-16        return root
+10            return root
+11        
+12        def dfs(node):
+13            if not node:
+14                return 
+15            dfs(node.left)  #1 
+16            dfs(node.right) #3
+17            node.left,node.right=node.right,node.left
+18
+19            return node
+20
+21        return dfs(root)
