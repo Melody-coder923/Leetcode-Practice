@@ -7,7 +7,7 @@
 7            odd_sum += 2 * i - 1
 8            even_sum += 2 * i
 9
-10        return math.gcd(odd_sum, even_sum)
+10        return even_sum - odd_sum
 11    
 12
 13
