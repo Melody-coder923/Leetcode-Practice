@@ -4,21 +4,7 @@
 4"""
 5class Solution:
 6    def singleNonDuplicate(self, nums: List[int]) -> int:
-7        left = 0
-8        right = len(nums) - 1
-9
-10        while left < right:
-11            mid = left + (right - left) // 2
-12
-13            # 保证 mid 是偶数下标
-14            if mid % 2 == 1:
-15                mid -= 1
-16
-17            if nums[mid] == nums[mid + 1]:
-18                # 当前这一对正常，单独元素在右边
-19                left = mid + 2
-20            else:
-21                # 当前配对被打破，单独元素在 mid 或左边
-22                right = mid
-23
-24        return nums[left]
+7        res=nums[0]
+8        for num in nums[1:]:
+9            res^=num
+10        return res
