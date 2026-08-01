@@ -3,15 +3,17 @@
 3        """
 4        Do not return anything, modify nums in-place instead.
 5        """
-6        def reverse(nums,left,right):
-7            while left<right:
-8                nums[left],nums[right]=nums[right],nums[left]
-9                left+=1
-10                right-=1
-11            return nums
-12        n=len(nums)
-13        k=k%n
-14        reverse(nums,0,n-1)
-15        reverse(nums,0,k-1)
-16        reverse(nums,k,n-1)
-17        return nums
+6        n=len(nums)
+7        k=k%n
+8
+9        def reverse(l,r,nums):
+10            while l<r:
+11                nums[l],nums[r]=nums[r],nums[l]
+12                l+=1
+13                r-=1
+14        
+15        reverse(0,n-1,nums)
+16        reverse(0,k-1,nums)
+17        reverse(k,n-1,nums)
+18        
+19      
