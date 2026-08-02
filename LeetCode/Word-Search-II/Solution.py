@@ -1,47 +1,51 @@
 1class TrieNode:
 2    def __init__(self):
-3        self.children={}
-4        self.end=False
+3        self.children={} #key char : value TrieNode
+4        self.isword=None
 5        self.word=None
 6
-7class Solution:
-8    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-9        root=TrieNode()
-10        for word in words:
-11            cur=root
-12            for c in word:
-13                if c not in cur.children:
-14                    cur.children[c]=TrieNode()
-15                cur=cur.children[c]
-16            cur.end=True
-17            cur.word=word
-18        
-19     
-20        directions=[(0,-1),(0,1),(-1,0),(1,0)]
-21        res=[]
-22        m,n=len(board),len(board[0])
-23        def dfs(i,j,node):
-24            if i<0 or j<0 or i>=m or j>=n or board[i][j]=="#":
-25                return
-26            char=board[i][j]
-27            if char not in node.children:
-28                return 
-29            
-30            node = node.children[char]
-31            if node.word:
-32                res.append(node.word)
-33                node.word=None
-34           
-35            board[i][j]="#"
-36            for di,dj in directions:
-37                ni,nj=i+di,j+dj
-38                if 0<=ni<m and 0<=nj<n and board[ni][nj] in node.children:
-39                    dfs(ni,nj,node)
-40            board[i][j]=char
-41            return res
-42
-43        cur=root
-44        for i in range(m):
-45            for j in range(n):
-46                dfs(i,j,cur)
-47        return res
+7
+8class Solution:
+9    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+10        #build Tries
+11        root=TrieNode()
+12        for word in words:
+13            cur = root
+14            for char in word:
+15                if char not in cur.children:
+16                    cur.children[char]=TrieNode()
+17                cur=cur.children[char]
+18            cur.isword=True
+19            cur.word=word
+20        m,n=len(board),len(board[0])
+21        directions=[(0,-1),(0,1),(1,0),(-1,0)]
+22        res=[]
+23        def dfs(x,y,node):
+24            if x < 0 or y < 0 or x >= m or y >= n:
+25                return False
+26
+27            char=board[x][y] 
+28            if char == "#":
+29                return
+30            
+31            if char not in node.children:
+32                return 
+33            
+34            nxt=node.children[char]
+35            if nxt.isword:
+36                res.append(nxt.word)
+37                nxt.isword=False
+38
+39            board[x][y] = "#"
+40
+41            for dx,dy in directions:
+42                nx,ny=x+dx,y+dy 
+43                dfs(nx,ny,nxt)
+44            board[x][y] = char
+45
+46            
+47        for i in range(m):
+48            for j in range(n):
+49                if board[i][j] in root.children:      
+50                    dfs(i,j,root)
+51        return res
