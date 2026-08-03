@@ -11,16 +11,18 @@
 11    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
 12        if not node:
 13            return None
-14        graph={}
-15        def build(node):
-16            if node in graph:
-17                return graph[node]
-18            newNode=Node(node.val)
-19            graph[node]=newNode
-20            for nei in node.neighbors:
-21                newNode.neighbors.append(build(nei))
-22
-23            return newNode
-24
-25        return build(node)
-26
+14        old_new={}
+15        old_new[node] = Node(node.val)
+16        q = deque([node])
+17        
+18    
+19        while q:
+20            cur = q.popleft()
+21            for nei in cur.neighbors:
+22                if nei not in old_new:
+23                    old_new[nei] = Node(nei.val)
+24                    q.append(nei)
+25
+26                old_new[cur].neighbors.append(old_new[nei])
+27
+28        return old_new[node]
