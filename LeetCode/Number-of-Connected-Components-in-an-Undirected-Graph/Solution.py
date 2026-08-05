@@ -1,33 +1,26 @@
-class DSU:
-    def __init__(self, n):
-        self.parent = [i for i in range(n)]
-        self.rank = [0 for _ in range(n)]
-
-    def find(self, x):
-        if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
-
-    def union(self, x, y):
-        xset = self.find(x)
-        yset = self.find(y)
-        if xset == yset:
-            return
-        if self.rank[xset] > self.rank[yset]:
-            self.parent[yset] = self.parent[xset]
-        elif self.rank[xset] < self.rank[yset]:
-            self.parent[xset] = self.parent[yset]
-        else:
-            self.parent[xset] = self.parent[yset]
-            self.rank[yset] += 1
-            
-class Solution:
-    def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        ds = DSU(n)
-        for edge in edges:
-            ds.union(edge[0], edge[1])
-        
-        parent = set()
-        for i in range(n):
-            parent.add(ds.find(i))
-        return len(parent)
+1class Solution:
+2    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+3        # build relation- dict  node -[]
+4        dict=defaultdict(list)
+5        for u,v in edges:
+6            dict[u].append(v)
+7            dict[v].append(u)
+8
+9        # dfs  visited -group
+10        visited=set()
+11
+12        def dfs(node):
+13            visited.add(node)
+14            for nei in dict[node]:
+15                if nei not in visited:
+16                    dfs(nei)
+17    
+18
+19        # for +dfs -> group +1
+20        group=0
+21        for node in range(n):
+22            if node not in visited:
+23                dfs(node)
+24                group+=1
+25        
+26        return group
