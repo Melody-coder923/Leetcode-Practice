@@ -1,8 +1,16 @@
-[8023419, 12, 65, 0, 3, 91823, 77]
-[448201]
-[9, 563, 18, 90213, 4, 76, 2, 591, 11, 33]
-[71, 0, 8, 351, 99, 46, 2309, 5, 14]
-[82, 1, 604]
-[5, 33, 9102, 18, 74, 2, 665]
-[100, 3, 41, 17, 85, 29, 6, 12, 50, 4, 88]
-[2, 71, 9, 314, 5]
+1class Solution:
+2    def predictTheWinner(self, nums: List[int]) -> bool:
+3        n=len(nums)
+4        dp=[[0] * n for _ in range(n)]
+5        #base case
+6        for i in range(n):
+7            dp[i][i]=nums[i]
+8        
+9        for length in range(2, n + 1):
+10            for l in range(n - length + 1):
+11                r = l + length - 1
+12                take_left = nums[l] - dp[l + 1][r]
+13                take_right = nums[r] - dp[l][r - 1]
+14                dp[l][r] = max(take_left, take_right)
+15
+16        return dp[0][n - 1] >= 0
