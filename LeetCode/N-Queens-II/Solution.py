@@ -1,8 +1,8 @@
 1class Solution:
 2    def totalNQueens(self, n: int) -> int:
-3        cols= set()
-4        diag=set() #row+col
-5        reverse_diag=set() # col-row
+3        cols=set()
+4        diag=set()
+5        reverse_diag=set()
 6        count=0
 7
 8        def backtrack(row):
@@ -10,18 +10,20 @@
 10            if row==n:
 11                count+=1
 12                return 
-13
+13            
 14            for col in range(n):
-15                if col in cols or row+col in diag or col-row in reverse_diag:
+15                if col in cols or col-row in reverse_diag or row+col in diag:
 16                    continue
-17                cols.add(col)
-18                diag.add(row+col)
-19                reverse_diag.add(col-row)
-20                backtrack(row+1)
-21                cols.remove(col)
-22                diag.remove(row+col)
-23                reverse_diag.remove(col-row)
-24
-25        backtrack(0)
-26        return count
-27    
+17                
+18                cols.add(col)
+19                diag.add(row+col)
+20                reverse_diag.add(col-row)
+21                backtrack(row+1)
+22                cols.remove(col)
+23                diag.remove(row+col)
+24                reverse_diag.remove(col-row)
+25            
+26        backtrack(0)
+27        return count
+28            
+29            
