@@ -3,18 +3,24 @@
 3        """
 4        Do not return anything, modify nums1 in-place instead.
 5        """
-6        i=m-1
-7        j=n-1
-8        p=len(nums1)-1
-9        while i>=0 and j>=0:
-10            if nums1[i]>nums2[j]:
-11                nums1[p]=nums1[i]
-12                i-=1
-13            else:
-14                nums1[p]=nums2[j]
-15                j-=1
-16            p-=1
-17        while j>=0:
-18            nums1[p]=nums2[j]
-19            j-=1
-20            p-=1
+6        length=len(nums1)
+7        p=length-1
+8        p1=m-1
+9        p2=n-1
+10        while p1>=0 and p2>=0:
+11            if nums1[p1]>nums2[p2]:
+12                nums1[p]=nums1[p1]
+13                p1-=1
+14            else:
+15                nums1[p]=nums2[p2]
+16                p2-=1
+17            
+18            p-=1
+19        
+20        while p2>=0:
+21            nums1[p]=nums2[p2]
+22            p-=1
+23            p2-=1
+24        
+25
+26
