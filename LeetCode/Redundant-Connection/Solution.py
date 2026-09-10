@@ -1,25 +1,19 @@
 1class Solution:
-2    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]: 
-3        graph=defaultdict(list)
-4        def dfs(node,target,visited):
-5            if node==target:
-6                return True
-7            visited.add(node)
-8            for nei in graph[node]:
-9                if nei not in visited:
-10                    if dfs(nei,target,visited):
-11                        return True
-12            return False
-13
-14        
-15
-16        for u,v in edges:
-17            if u in graph and v in graph:
-18                if dfs(u,v,set()):
-19                    return [u,v]
-20            graph[u].append(v)
-21            graph[v].append(u)
-22        return []
-23
-24
-25
+2    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+3        parent=[i for i in range(len(edges)+1)]
+4
+5        def find(x):
+6            if parent[x] != x:
+7                parent[x]=find(parent[x])
+8            return parent[x]
+9
+10        def union(u,v):
+11            root_u=find(u)
+12            root_v=find(v)
+13            if root_u==root_v:
+14                return False
+15            parent[root_v]=root_u
+16            return True
+17        for u,v in edges:
+18            if not union(u,v):
+19                return [u,v]
