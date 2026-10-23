@@ -4,7 +4,7 @@ class Solution:
         nums.sort()
         res=[]
 
-        for i in range(n):
+        for i in range(n-2):
             if nums[i]>0:
                 return res
 
