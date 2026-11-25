@@ -1,20 +1,25 @@
 class Solution:
-    def compress(self, chars: List[str]) -> int:
-        write=0
-        i=0
-        while i< len(chars):
-            current_char=chars[i]
-            count=1
-            while i+1< len(chars) and chars[i+1]==current_char:
-                count+=1
-                i+=1
-            chars[write]=current_char
-            write+=1
-            if count>1:
-                for num in str(count):
-                    chars[write]=num
-                    write+=1
-            i+=1
-        return write
-        
-                
+    def compress(self, chars: list[str]) -> int:
+        n = len(chars)
+        l, r = 0, 0
+
+        while r < n:
+            prev = chars[r]
+            count = 0
+
+            # 统计当前字符出现的次数
+            while r < n and chars[r] == prev:
+                count += 1
+                r += 1
+
+            # 写入当前字符
+            chars[l] = prev
+            l += 1
+
+            # 写入字符出现的次数
+            if count > 1:
+                for digit in str(count):
+                    chars[l] = digit
+                    l += 1
+
+        return l
